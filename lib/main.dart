@@ -9,6 +9,7 @@ class SmartingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // 右上のdebug削除
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: BottomNavigationController(),
