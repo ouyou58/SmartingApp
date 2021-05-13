@@ -28,7 +28,7 @@ class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
   int _currentIndex = 0;
   final pages = [EquipmentManage(),BusinessName()];
-  // タブバー
+  // タブバー feshfekhっっdjっっっっっっfee
   final tabBarTitle = ['備品管理', '名刺管理'];
 
   @override
