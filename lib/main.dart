@@ -26,33 +26,42 @@ class BottomNavigationController extends StatefulWidget {
 
 class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
-  int _currentIndex = 0;
-  final pages = [EquipmentManage(),BusinessName()];
-  // タブバー feshfekhっっdjっっっっっっfee
-  final tabBarTitle = ['備品管理', '名刺管理'];
+  int currentIndex = 0;
+  final pages = [EquipmentManage(), BusinessName()];
+
+  // タブバー
+  final tabBarTitles = ['備品管理', '名刺管理'];
+  String currentTitle = "";
 
   @override
   Widget build(BuildContext context) {
+    currentTitle = tabBarTitles[currentIndex];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
-        title: Text('スマートアイエンジー',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight:FontWeight.w600),),
+        title: Text(
+          currentTitle,
+          style: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+        ),
       ),
-      drawer: Drawer(child: ListView(),),
-      body: pages[_currentIndex],
+      drawer: Drawer(
+        child: ListView(),
+      ),
+      body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.assessment), label: tabBarTitle[0]),
+              icon: Icon(Icons.assessment), label: tabBarTitles[0]),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_box), label: tabBarTitle[1])
+              icon: Icon(Icons.account_box), label: tabBarTitles[1])
         ],
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex,
         fixedColor: Colors.amber,
         onTap: (value) {
           setState(() {
-            this._currentIndex = value.toInt();
+            this.currentIndex = value.toInt();
           });
         },
       ),
