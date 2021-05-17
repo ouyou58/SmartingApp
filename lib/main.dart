@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smarting/add_new_card.dart';
 import 'package:smarting/business_name.dart';
 import 'package:smarting/equipment_manage.dart';
 
 void main() => runApp(SmartingApp());
 
 class SmartingApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,6 +67,19 @@ class _BottomNavigationControllerState
           });
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showAddPage(),
+        child: new Icon(Icons.add),
+        backgroundColor: Colors.amber,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+
+  void showAddPage() {
+    if (currentIndex == 1) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AddNewCard()));
+    }
   }
 }
