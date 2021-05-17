@@ -28,12 +28,6 @@ class _EquipmentManageState extends State<EquipmentManage> {
                 onDismissed: (action) =>
                     dismissSlidableItem(context, index, action));
           },
-        ),
-        //備品追加ボタン
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
-          label: Text('備品追加'),
-          icon: Icon(Icons.add),
         ));
   }
 
