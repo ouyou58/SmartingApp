@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smarting/model/data.dart';
 import 'package:smarting/model/list.dart';
+import 'package:smarting/pages/equipment_info.dart';
 import 'package:smarting/widget/slidable_widget.dart';
 
 class EquipmentManage extends StatefulWidget {
@@ -39,20 +40,49 @@ class _EquipmentManageState extends State<EquipmentManage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(10),
-            child: Center(child:Image.asset('assets/images/ccccc.png')),
+            color: Colors.amber[100],
+            padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+            child:Row(
+              children: [
+                Text("カテゴリー : ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                Text(item.name, style: TextStyle(fontSize: 16),)
+              ],
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+          ),
+          InkWell(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Center(child:Image.asset(item.picture)),
+              height: 300,
+            ),
+            onTap: () => Navigator.push(
+                context,
+                //item伝送
+                MaterialPageRoute(builder: (context) => EquipmentInfo(item: item))
+            ),
           ),
           Container(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-              child:Row(children: [Text("カテゴリー:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),Text(item.name)],)
+              //color: Colors.amber[200],
+              padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+              child:Row(
+                children: [
+                  Text("備品名 : ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                  Text(item.sub, style: TextStyle(fontSize: 16),)
+                ],
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              ),
           ),
           Container(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-              child:Row(children: [Text("備品名:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),Text(item.sub)],)
-          ),
-          Container(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-              child:Row(children: [Text("個数:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),Text('${item.stock}')],)
+              //color: Colors.amber[100],
+              padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+              child:Row(
+                children: [
+                  Text("個数 : ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                  Text('${item.stock}個', style: TextStyle(fontSize: 16),),
+                ],
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              ),
           ),
         ],
       );
