@@ -15,7 +15,6 @@ class BusinessName extends StatelessWidget {
             itemCount: 5,
             itemBuilder: (context, index) {
               return Column(
-                // 自定义cell
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,

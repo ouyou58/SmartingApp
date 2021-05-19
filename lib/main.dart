@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smarting/add_new_card.dart';
+import 'package:smarting/add_new_equipment.dart';
 import 'package:smarting/business_name.dart';
 import 'package:smarting/equipment_manage.dart';
 
@@ -77,7 +78,10 @@ class _BottomNavigationControllerState
   }
 
   void showAddPage() {
-    if (currentIndex == 1) {
+    if (currentIndex == 0) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AddNewEquipment()));
+    }else if (currentIndex == 1) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AddNewCard()));
     }
