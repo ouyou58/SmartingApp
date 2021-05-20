@@ -1,40 +1,66 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'model/business_card_model.dart';
+
 class BusinessName extends StatelessWidget {
   //　TODO データベースから取得情報
-  int data = 10;
+
+  List<BusinessCardModel> itemData = [
+    BusinessCardModel(
+        businessCard: 'assets/images/smarting.png',
+        companyName: 'スマートアイエンジー株式会社',
+        name: '神津　里見'),
+    BusinessCardModel(
+        businessCard: 'assets/images/sbi.png',
+        companyName: 'SBI株式会社',
+        name: '石原　さとみ'),
+    BusinessCardModel(
+        businessCard: 'assets/images/fujisoft.png',
+        companyName: '富士ソフト株式会社',
+        name: '松本　大樹')
+  ];
 
   @override
   Widget build(BuildContext context) {
-    if (data == 0) {
+    if (itemData == 0) {
       return Center(child: Text("there is nothing"));
     } else {
-      return Center(
-        child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    child: Center(child:Image.asset('assets/images/bbbbb.png')),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                    child:Row(children: [Text("会社:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),Text("スマートアイエンジー株式会社")],)
-                  ),
-                  Container(
-                      padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                      child:Row(children: [Text("名前:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),Text("米倉涼子")],)
-                  ),
-                ],
-              );
-            }),
-      );
+      return ListView.builder(
+          itemCount: itemData.length,
+          itemBuilder: (context, index) {
+            return CardItem(
+              index: index,itemData: itemData,
+            );
+          });
     }
+  }
+}
+
+// 名刺リストitem
+class CardItem extends StatelessWidget {
+  final int index;
+  final List<BusinessCardModel> itemData;
+
+  const CardItem(
+      {required this.index,required this.itemData});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(child: Image.asset(itemData[index].businessCard)),
+        Container(
+          child: Row(
+            children: [Text('会社：'), Text(itemData[index].companyName)],
+          ),
+        ),
+        Container(
+          child: Row(
+            children: [Text('名前:'), Text(itemData[index].name)],
+          ),
+        )
+      ],
+    );
   }
 }
