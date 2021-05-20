@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'model/business_card_model.dart';
+import 'package:smarting/model/business_card_model.dart';
 
 class BusinessName extends StatelessWidget {
   //　TODO データベースから取得情報
