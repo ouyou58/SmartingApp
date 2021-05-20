@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:smarting/model/list.dart';
 
 class EquipmentInfo extends StatefulWidget{
@@ -14,7 +15,18 @@ class EquipmentInfo extends StatefulWidget{
 class _EquipmentInfoState extends State<EquipmentInfo> {
 
   @override
+  void initState(){
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    String _cate = widget.item.name;
+    String _name = widget.item.sub;
+    String _pic = widget.item.picture;
+    int _stock = widget.item.stock;
+    String _biko = widget.item.biko;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
@@ -32,36 +44,38 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
           Container(
             margin: EdgeInsets.fromLTRB(20, 40, 20, 20),
             child: TextFormField(
-              initialValue: widget.item.name,
+              initialValue: _cate,
               decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
                 labelText: 'カテゴリー',
                 //errorText: 'Error message',
                 border: OutlineInputBorder(),
               ),
             ),
-            color: Colors.white,
           ),
           Container(
             margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: TextFormField(
-              initialValue: widget.item.sub,
+              initialValue: _name,
               decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
                 labelText: '備品名',
                 //errorText: 'Error message',
                 border: OutlineInputBorder(),
               ),
             ),
-            color: Colors.white,
           ),
           InkWell(
             child: Container(
               padding: EdgeInsets.only(top: 20, bottom: 20),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black26),
+                border: Border.all(color: Colors.black54),
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
               ),
-              child: Center(child: Image.asset(widget.item.picture),),
+              child: Center(child: Image.asset(_pic),),
               height: 200,
               margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
             ),
@@ -69,23 +83,42 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
           ),
           Container(
             margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-            child: TextFormField(
-              initialValue: '${widget.item.stock}',
-              decoration: InputDecoration(
-                  labelText: '在庫',
-                  //errorText: 'Error message',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.only(left: 15)
-              ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                IconButton(onPressed: () {}, icon: Icon(Icons.remove_circle)),
+                Flexible(child:
+                TextFormField(
+                  inputFormatters: <TextInputFormatter>[
+                    // ignore: deprecated_member_use
+                    WhitelistingTextInputFormatter.digitsOnly
+                  ],
+                  keyboardType: TextInputType.number,
+                  initialValue: '$_stock',
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    labelText: '在庫',
+                    //errorText: 'Error message',
+                    border: OutlineInputBorder(),
+                    counterText: '',
+                  ),
+                )
+                ),
+                IconButton(onPressed: () {}, icon: Icon(Icons.add_circle))
+              ],
             ),
-            color: Colors.white,
           ),
           Container(
             margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: TextFormField(
               maxLines: 5,
-              initialValue: '${widget.item.biko}',
+              initialValue: _biko,
               decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
                 labelText: '備考',
                 //errorText: 'Error message',
                 border: OutlineInputBorder(),
@@ -93,7 +126,6 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
               ),
               maxLength: 135,
             ),
-            color: Colors.white,
           ),
           Container(
             margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -105,12 +137,13 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
                 CupertinoButton(
                   child: Text('button'),
                   color: Colors.black26,
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                 ),
                 CupertinoButton(
-                    child: Text('button'),
-                    color: Colors.red[300],
-                    onPressed: () {},
+                  child: Text('button'),
+                  color: Colors.red[300],
+                  onPressed: () {},
                 ),
               ],
             ),
