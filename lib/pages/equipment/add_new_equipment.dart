@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'main.dart';
+import '../../Smarting_AppMenu.dart';
 
 class AddNewEquipment extends StatelessWidget {
   @override
@@ -20,7 +20,7 @@ class AddNewEquipment extends StatelessWidget {
               RaisedButton(
                 child: Text('戻る'),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SmartingApp()));
+                  Navigator.of(context).pop();
                 }
               )
             ],

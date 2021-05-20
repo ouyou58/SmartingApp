@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:smarting/business_name.dart';
 
-import 'main.dart';
+import '../../Smarting_AppMenu.dart';
+
 
 class AddNewCard extends StatefulWidget {
   const AddNewCard({Key? key}) : super(key: key);
@@ -235,9 +235,11 @@ class _AddNewCardState extends State<AddNewCard> {
                     child: Text('保存しない'),
                     color: Colors.red,
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SmartingApp()));
+                      Navigator.of(context).pop();
                     },
+
                   ),
+
                   RaisedButton(
                     child: Text('保存します'),
                     color: Colors.blue,

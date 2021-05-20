@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smarting/model/data.dart';
 import 'package:smarting/model/list.dart';
-import 'package:smarting/pages/equipment_info.dart';
+
 import 'package:smarting/widget/slidable_widget.dart';
+
+import 'equipment_info.dart';
 
 class EquipmentManage extends StatefulWidget {
   @override
