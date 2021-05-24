@@ -91,6 +91,7 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
                 IconButton(onPressed: () {}, icon: Icon(Icons.remove_circle)),
                 Flexible(child:
                 TextFormField(
+                  textAlign: TextAlign.center,
                   inputFormatters: <TextInputFormatter>[
                     // ignore: deprecated_member_use
                     WhitelistingTextInputFormatter.digitsOnly
@@ -110,6 +111,7 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
                 IconButton(onPressed: () {}, icon: Icon(Icons.add_circle))
               ],
             ),
+            width: 180,
           ),
           Container(
             margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -123,6 +125,7 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
                 //errorText: 'Error message',
                 border: OutlineInputBorder(),
                 counterText: '',
+                alignLabelWithHint: true,
               ),
               maxLength: 135,
             ),

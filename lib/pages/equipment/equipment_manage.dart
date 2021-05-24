@@ -46,7 +46,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
             padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
             child:Row(
               children: [
-                Text("カテゴリー : ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                Text("カテゴリー  :  ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
                 Text(item.name, style: TextStyle(fontSize: 16),)
               ],
               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +69,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
               padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
               child:Row(
                 children: [
-                  Text("備品名 : ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                  Text("備品名  :  ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
                   Text(item.sub, style: TextStyle(fontSize: 16),)
                 ],
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -80,7 +80,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
               padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
               child:Row(
                 children: [
-                  Text("個数 : ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                  Text("個数  :  ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
                   Text('${item.stock}個', style: TextStyle(fontSize: 16),),
                 ],
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,

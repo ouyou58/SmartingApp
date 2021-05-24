@@ -87,6 +87,7 @@ class _AddNewEquipmentState extends State<AddNewEquipment>{
                       IconButton(onPressed: () {}, icon: Icon(Icons.remove_circle)),
                       Flexible(child:
                       TextFormField(
+                        textAlign: TextAlign.center,
                         inputFormatters: <TextInputFormatter>[
                           // ignore: deprecated_member_use
                           WhitelistingTextInputFormatter.digitsOnly
@@ -106,6 +107,7 @@ class _AddNewEquipmentState extends State<AddNewEquipment>{
                       IconButton(onPressed: () {}, icon: Icon(Icons.add_circle))
                     ],
                   ),
+                  width: 180,
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
