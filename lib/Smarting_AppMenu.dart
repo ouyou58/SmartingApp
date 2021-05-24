@@ -62,25 +62,43 @@ class _BottomNavigationControllerState
         ],
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: <Widget>[
             DrawerHeader(
+              padding: EdgeInsets.only(bottom: 15),
               decoration: BoxDecoration(
-                color: Colors.amber,
+                color: Colors.amberAccent,
               ),
-              child: Text('臨時のDrawer'),
+              child: Image.asset('assets/images/smt_logo2.png'),
             ),
-            ListTile(
-              title: Text('臨時1'),
-              onTap: () {
-              },
+            Expanded(
+              child: Align(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: 40, bottom: 40),
+                      child: Text(
+                        'Made By SMT_社内チーム',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: Text('abcd'),
+                    )
+                  ],
+                )
+              ),
             ),
-            ListTile(
-              title: Text('臨時2'),
-              onTap: () {
-              },
-            ),
+            Container(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Image.asset('assets/images/p_17002962.png', height: 80,),
+              ),
+            )
           ],
         ),
       ),
