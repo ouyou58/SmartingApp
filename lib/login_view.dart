@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smarting/Smarting_AppMenu.dart';
+import 'package:smarting/smarting_AppMenu.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
 class LoginView extends StatefulWidget {
@@ -25,7 +25,7 @@ class _LoginViewState extends State<LoginView> {
           image: DecorationImage(
             image: AssetImage('assets/images/bglogin.png'),
             fit: BoxFit.fill,
-            colorFilter: ColorFilter.mode(Colors.orange, BlendMode.color)
+            colorFilter: ColorFilter.mode(Colors.orangeAccent, BlendMode.color)
           )
         ),
         child: Column(

@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:smarting/Smarting_AppMenu.dart';
+import 'package:smarting/smarting_AppMenu.dart';
 import 'package:smarting/main.dart';
 
 void main() {

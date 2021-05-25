@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smarting/pages/userinfo/login_view.dart';
+import 'package:smarting/login_view.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
-import 'Smarting_AppMenu.dart';
+import 'smarting_AppMenu.dart';
 
 void main() {
   runApp(SmartingApp());

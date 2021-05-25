@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smarting/pages/userinfo/login_view.dart';
+import 'package:smarting/login_view.dart';
 
 class PageNotifier extends ChangeNotifier{
   String _currentPage = LoginView.pageName;
