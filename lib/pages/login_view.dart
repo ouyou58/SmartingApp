@@ -16,6 +16,9 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+
+  bool isSignUp = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,13 +47,51 @@ class _LoginViewState extends State<LoginView> {
                     ]
                 )
             ),
-            SizedBox(height: 50),
             Padding(
               padding: EdgeInsets.all(45),
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.all(2),
+                    child: Column(
+                      children: <Widget>[
+                        ButtonBar(
+                          children: [
+                            // ignore: deprecated_member_use
+                            FlatButton(
+                                onPressed: (){
+                                  setState(() {
+                                    isSignUp = false;
+                                  });
+                                },
+                                child: Text(
+                                  'ログイン',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: isSignUp?FontWeight.w300:FontWeight.w600,
+                                      color: isSignUp?Colors.orange.shade300:Colors.orange.shade800,
+                                  ),
+                                )
+                            ),
+                            // ignore: deprecated_member_use
+                            FlatButton(
+                                onPressed: (){
+                                  setState(() {
+                                    isSignUp = true;
+                                  });
+                                },
+                                child: Text(
+                                  '新規登録',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: isSignUp?FontWeight.w600:FontWeight.w300,
+                                      color: isSignUp?Colors.orange.shade800:Colors.orange.shade300,
+                                  ),
+                                )
+                            )
+                          ],
+                        ),
+                      ],
+                    )
                   ),
                   Container(
                     padding: EdgeInsets.all(10),
@@ -84,7 +125,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         SizedBox(height: 10),
                         Container(
-                          padding: EdgeInsets.all(5),
+                          height: 50,
                           decoration: BoxDecoration(
                               color: Colors.orange.shade50
                           ),
@@ -97,8 +138,9 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                         SizedBox(height: 10),
-                        Container(
-                          padding: EdgeInsets.all(5),
+                        AnimatedContainer(
+                          height: isSignUp?0:50,
+                          duration: Duration(milliseconds: 100),
                           decoration: BoxDecoration(
                               color: Colors.orange.shade50
                           ),
@@ -119,7 +161,7 @@ class _LoginViewState extends State<LoginView> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(20))
                                 ),
-                                child: Text('ログイン', style: TextStyle(color: Colors.white),),
+                                child: Text(isSignUp?'新規登録':'ログイン', style: TextStyle(color: Colors.white),),
                                 onPressed: () {
                                   Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SmartingAppMenu.pageName);
                                 }
