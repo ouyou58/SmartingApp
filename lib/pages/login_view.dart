@@ -162,7 +162,7 @@ class _LoginViewState extends State<LoginView> {
                                       print('入力チェック完了');
 
                                       if (!isSignUp) {
-                                        Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SmatingMain.pageName);
+                                        Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SmartingMain.pageName);
                                         print('ログイン完了');
                                       } else {
                                         //todo : ユーザ情報を登録するための仕様が立っていない。

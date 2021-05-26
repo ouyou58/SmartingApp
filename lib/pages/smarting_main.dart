@@ -9,7 +9,7 @@ import 'package:smarting/pages/smarting_side_drawer.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
 
-class SmatingMain extends Page {
+class SmartingMain extends Page {
 
   static final String pageName = 'SmartingAppMenu';
 
