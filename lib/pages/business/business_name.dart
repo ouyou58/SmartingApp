@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smarting/model/business_card_model.dart';
+import 'package:smarting/pages/business/card_info.dart';
 
 class BusinessName extends StatelessWidget {
   //　TODO データベースから取得情報
@@ -48,7 +49,13 @@ class CardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(child: Image.asset(itemData[index].businessCard)),
+        InkWell(
+          child: Container(child: Image.asset(itemData[index].businessCard)),
+          onTap: () => Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => cardInfo())
+          ),
+        ),
         Container(
           child: Row(
             children: [Text('会社：'), Text(itemData[index].companyName)],
