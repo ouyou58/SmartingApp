@@ -10,10 +10,10 @@ class AddNewCard extends StatefulWidget {
 }
 
 class _AddNewCardState extends State<AddNewCard> {
-  String? inputedValueName = "入力してください。";
-  String? inputedValueTel = "入力してください。";
-  String? inputedValueAddress = "入力してください。";
-  String? inputedValueStation = "入力してください。";
+  String? name = "入力してください。";
+  String? phone = "入力してください。";
+  String? address = "入力してください。";
+  String? station = "入力してください。";
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class _AddNewCardState extends State<AddNewCard> {
         leading: IconButton(
           // onPressed: () => showAlertDialog(),
           onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(Icons.close),
+          icon: Icon(Icons.arrow_back),
         ),
         title: Text("名刺追加"),
         backgroundColor: Colors.amber,
@@ -97,7 +97,7 @@ class _AddNewCardState extends State<AddNewCard> {
                   ),
                 ),
                 Text(
-                  "お名前　あなたの入力 : ${this.inputedValueName}",
+                  "お名前　あなたの入力 : ${this.name}",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 TextField(
@@ -115,18 +115,18 @@ class _AddNewCardState extends State<AddNewCard> {
                     if (text.length > 0) {
                       // 入力値があるなら、それを反映する。
                       setState(() {
-                        this.inputedValueName = text;
+                        this.name = text;
                       });
                     }
                     else {
                       setState(() {
-                        this.inputedValueName = "入力してください。";
+                        this.name = "入力してください。";
                       });
                     }
                   },
                 ),
                 Text(
-                  "TEL/FAX　あなたの入力 : ${this.inputedValueTel}",
+                  "TEL/FAX　あなたの入力 : ${this.phone}",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 TextField(
@@ -144,18 +144,18 @@ class _AddNewCardState extends State<AddNewCard> {
                     if (text.length > 0) {
                       // 入力値があるなら、それを反映する。
                       setState(() {
-                        this.inputedValueTel = text;
+                        this.phone = text;
                       });
                     }
                     else {
                       setState(() {
-                        this.inputedValueTel = "入力してください。";
+                        this.phone = "入力してください。";
                       });
                     }
                   },
                 ),
                 Text(
-                  "住所　あなたの入力 : ${this.inputedValueAddress}",
+                  "住所　あなたの入力 : ${this.address}",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 TextField(
@@ -173,18 +173,18 @@ class _AddNewCardState extends State<AddNewCard> {
                     if (text.length > 0) {
                       // 入力値があるなら、それを反映する。
                       setState(() {
-                        this.inputedValueAddress = text;
+                        this.address = text;
                       });
                     }
                     else {
                       setState(() {
-                        this.inputedValueAddress = "入力してください。";
+                        this.address = "入力してください。";
                       });
                     }
                   },
                 ),
                 Text(
-                  "最寄駅　あなたの入力 : ${this.inputedValueStation}",
+                  "最寄駅　あなたの入力 : ${this.station}",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 TextField(
@@ -202,12 +202,12 @@ class _AddNewCardState extends State<AddNewCard> {
                     if (text.length > 0) {
                       // 入力値があるなら、それを反映する。
                       setState(() {
-                        this.inputedValueStation = text;
+                        this.station = text;
                       });
                     }
                     else {
                       setState(() {
-                        this.inputedValueStation = "入力してください。";
+                        this.station = "入力してください。";
                       });
                     }
                   },
