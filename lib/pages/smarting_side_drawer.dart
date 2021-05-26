@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AppDrawer extends StatelessWidget {
+class SideDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-
-        ),
         child: Column(
           children: <Widget>[
             Container(
@@ -87,7 +84,7 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.logout),
               title: Text(
-                  '個人情報'
+                'ログアウト'
               ),
             )
           ],

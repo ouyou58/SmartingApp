@@ -5,7 +5,9 @@ import 'package:smarting/pages/business/add_new_card.dart';
 import 'package:smarting/pages/business/business_name.dart';
 import 'package:smarting/pages/equipment/add_new_equipment.dart';
 import 'package:smarting/pages/equipment/equipment_manage.dart';
+import 'package:smarting/pages/smarting_side_drawer.dart';
 import 'package:smarting/provider/page_notifier.dart';
+
 
 class SmartingAppMenu extends Page {
 
@@ -62,45 +64,7 @@ class _BottomNavigationControllerState
         ],
       ),
       drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            DrawerHeader(
-              padding: EdgeInsets.only(bottom: 15),
-              decoration: BoxDecoration(
-                color: Colors.amberAccent,
-              ),
-              child: Image.asset('assets/images/smt_logo2.png'),
-            ),
-            Expanded(
-              child: Align(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(top: 40, bottom: 40),
-                      child: Text(
-                        'Made By SMT_社内チーム',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Text('abcd'),
-                    )
-                  ],
-                )
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: Image.asset('assets/images/p_17002962.png', height: 80,),
-              ),
-            )
-          ],
-        ),
+       child: SideDrawer()
       ),
       body: pages[tabBarIndex],
       bottomNavigationBar: BottomNavigationBar(

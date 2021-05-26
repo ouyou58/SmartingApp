@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smarting/login_view.dart';
+import 'package:smarting/pages/login_view.dart';
+import 'package:smarting/pages/smarting_main.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
-import 'smarting_AppMenu.dart';
 
 void main() {
   runApp(SmartingApp());
 }
 
 class SmartingApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smarting/smarting_AppMenu.dart';
+import 'package:smarting/pages/smarting_main.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
 class LoginView extends StatefulWidget {
