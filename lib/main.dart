@@ -23,7 +23,7 @@ class SmartingApp extends StatelessWidget {
                       key: ValueKey(LoginView.pageName),
                       child: LoginView(title: '臨時ログイン画面')
                   ),
-                  if(pageNotifier.currentPage == SmartingAppMenu.pageName)SmartingAppMenu(),
+                  if(pageNotifier.currentPage == SmatingMain.pageName)SmatingMain(),
                 ],
                 onPopPage:(route, result){
                   if(!route.didPop(result)){

@@ -18,6 +18,10 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
 
   bool isSignUp = true;
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController _emailtextcontroller = TextEditingController();
+  TextEditingController _passwordtextcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -106,76 +110,108 @@ class _LoginViewState extends State<LoginView> {
                           )
                         ]
                     ),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            padding: EdgeInsets.all(2),
-                            child: Center(child:Image.asset('assets/images/smt_logo2.png')),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                              padding: EdgeInsets.all(2),
+                              child: Center(child:Image.asset('assets/images/smt_logo2.png')),
+                              decoration: BoxDecoration(
+                                  color: Colors.orange.shade200,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color : Color.fromRGBO(255, 153, 0, 10),
+                                        blurRadius: 20.0,
+                                        offset: Offset(0, 10)
+                                    )
+                                  ]
+                              )
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            height: 50,
                             decoration: BoxDecoration(
-                                color: Colors.orange.shade200,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color : Color.fromRGBO(255, 153, 0, 10),
-                                      blurRadius: 20.0,
-                                      offset: Offset(0, 10)
-                                  )
-                                ]
-                            )
-                        ),
-                        SizedBox(height: 10),
-                        Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Colors.orange.shade50
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "メールを入力してください。",
-                              hintStyle: TextStyle(color: Colors.grey[500]),
+                                color: Colors.orange.shade50
                             ),
+                            child: buildTextFormField("メールを入力してください。", _emailtextcontroller)
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        AnimatedContainer(
-                          height: isSignUp?0:50,
-                          duration: Duration(milliseconds: 100),
-                          decoration: BoxDecoration(
-                              color: Colors.orange.shade50
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "パスワードを入力してください。",
-                                hintStyle: TextStyle(color: Colors.grey[500])
+                          SizedBox(height: 10),
+                          AnimatedContainer(
+                            height: isSignUp?0:50,
+                            duration: Duration(milliseconds: 100),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            decoration: BoxDecoration(
+                                color: Colors.orange.shade50
                             ),
+                            child: buildTextFormField("パスワードを入力してください。", _passwordtextcontroller)
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Container(
-                            // ignore: deprecated_member_use
-                            child: RaisedButton(
-                                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 120),
-                                color: Colors.orange,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(20))
-                                ),
-                                child: Text(isSignUp?'新規登録':'ログイン', style: TextStyle(color: Colors.white),),
-                                onPressed: () {
-                                  Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SmartingAppMenu.pageName);
-                                }
-                            ),
-                        ),
-                      ],
+                          SizedBox(height: 10),
+                          Container(
+                              // ignore: deprecated_member_use
+                              child: RaisedButton(
+                                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 120),
+                                  color: Colors.orange,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                  ),
+                                  child: Text(isSignUp?'新規登録':'ログイン', style: TextStyle(color: Colors.white),),
+                                  onPressed: () {
+                                    if(_formKey.currentState!.validate()) {
+                                      print('入力チェック完了');
+
+                                      if (!isSignUp) {
+                                        Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SmatingMain.pageName);
+                                        print('ログイン完了');
+                                      } else {
+                                        //todo : ユーザ情報を登録するための仕様が立っていない。
+                                        print('新規登録完了');
+                                      }
+
+                                    } else {
+
+                                    }
+                                  }
+                              ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
           ]
         )
       ),
+    );
+  }
+
+  TextFormField buildTextFormField(String insertText, TextEditingController useController) {
+    return TextFormField(
+      controller: useController,
+      validator: (text){
+        if(text == null || text.isEmpty){
+          return '入力情報が空欄であります。';
+        }
+        return null;
+      },
+      cursorColor: Colors.grey,
+      decoration: InputDecoration(
+        border: buildOutlineInputBorder(),
+        enabledBorder: buildOutlineInputBorder(),
+        focusedBorder: buildOutlineInputBorder(),
+        hintText: insertText,
+        hintStyle: TextStyle(color: Colors.grey[500]),
+      ),
+    );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder() {
+    return OutlineInputBorder(
+        borderRadius : BorderRadius.circular(4),
+        borderSide: BorderSide(color: Colors.orange, width: 1)
     );
   }
 }

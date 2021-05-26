@@ -9,7 +9,7 @@ import 'package:smarting/pages/smarting_side_drawer.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
 
-class SmartingAppMenu extends Page {
+class SmatingMain extends Page {
 
   static final String pageName = 'SmartingAppMenu';
 
@@ -64,7 +64,7 @@ class _BottomNavigationControllerState
         ],
       ),
       drawer: Drawer(
-       child: SideDrawer()
+       child: SmartingSideDrawer()
       ),
       body: pages[tabBarIndex],
       bottomNavigationBar: BottomNavigationBar(
