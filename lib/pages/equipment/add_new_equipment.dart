@@ -24,7 +24,7 @@ class _AddNewEquipmentState extends State<AddNewEquipment>{
                   onPressed: () => Navigator.of(context).pop(),
                   icon: Icon(Icons.arrow_back_outlined)
               ),
-              backgroundColor: Colors.amber,
+              backgroundColor: Colors.orangeAccent,
               title: Text(
                 '備品追加',
                 style: TextStyle(
@@ -136,13 +136,13 @@ class _AddNewEquipmentState extends State<AddNewEquipment>{
                         children: <Widget>[
                           CupertinoButton(
                             child: Text('初期化'),
-                            color: Colors.black26,
+                            color: Colors.orangeAccent.shade100,
                             onPressed: () {
                             },
                           ),
                           CupertinoButton(
                             child: Text('登録'),
-                            color: Colors.red[300],
+                            color: Colors.orange,
                             onPressed: () {},
                           ),
                         ],

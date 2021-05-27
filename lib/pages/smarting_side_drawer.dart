@@ -38,7 +38,7 @@ class SmartingSideDrawer extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: AssetImage('assets/images/beer.jpg'),
+                          image: AssetImage('assets/images/unknwon.png'),
                           fit: BoxFit.fill,
                       ),
                     ),
@@ -90,6 +90,4 @@ class SmartingSideDrawer extends StatelessWidget {
         ),
     );
   }
-
-
 }
