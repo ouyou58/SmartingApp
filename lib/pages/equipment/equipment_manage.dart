@@ -117,7 +117,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
                 Container(
                   height: 35,
                   decoration: BoxDecoration(
-                      color: Colors.orangeAccent.shade100,
+                      color: Colors.orangeAccent.shade200,
                       borderRadius: BorderRadius.circular(1),
                       boxShadow: [
                         BoxShadow(
