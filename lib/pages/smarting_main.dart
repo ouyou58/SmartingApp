@@ -47,7 +47,7 @@ class _BottomNavigationControllerState
     currentTitle = tabBarTitles[tabBarIndex];
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.orangeAccent,
         title: Text(
           currentTitle,
           style: TextStyle(
@@ -73,7 +73,7 @@ class _BottomNavigationControllerState
               icon: Icon(Icons.account_box), label: tabBarTitles[1])
         ],
         currentIndex: tabBarIndex,
-        fixedColor: Colors.amber,
+        fixedColor: Colors.orangeAccent,
         onTap: (value) {
           setState(() {
             this.tabBarIndex = value.toInt();
@@ -83,7 +83,7 @@ class _BottomNavigationControllerState
       floatingActionButton: FloatingActionButton(
         onPressed: () => showAddPage(),
         child: new Icon(Icons.add),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.orangeAccent,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

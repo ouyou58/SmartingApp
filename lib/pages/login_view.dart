@@ -131,7 +131,7 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           SizedBox(height: 10),
                           Container(
-                            height: 60,
+                            height: 70,
                             decoration: BoxDecoration(
                                 color: Colors.orange.shade50
                             ),
@@ -139,8 +139,8 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           SizedBox(height: 10),
                           AnimatedContainer(
-                            height: _isSignUp?0:60,
-                            duration: Duration(milliseconds: 100),
+                            height: _isSignUp?0:70,
+                            duration: Duration(milliseconds: 1500),
                             curve: Curves.fastLinearToSlowEaseIn,
                             decoration: BoxDecoration(
                                 color: Colors.orange.shade50
@@ -179,10 +179,11 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   Container(
+                      // ignore: deprecated_member_use
                       child: FlatButton(
                           onPressed: (){
                             setState(() {
-
+                              //todo: パスワードを忘れた方はこちらへの遷移先を追加する。
                             });
                           },
                           child: Text(
@@ -207,6 +208,7 @@ class _LoginViewState extends State<LoginView> {
 
   TextFormField buildTextFormField(String inputArea, String hintText, TextEditingController useController) {
     return TextFormField(
+      textAlignVertical: TextAlignVertical.center,
       controller: useController,
       //入力チェック
       validator: (inputData){
@@ -230,9 +232,11 @@ class _LoginViewState extends State<LoginView> {
       },
       cursorColor: Colors.grey,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(vertical: 17, horizontal: 20),
         border: buildOutlineInputBorder(),
         enabledBorder: buildOutlineInputBorder(),
         focusedBorder: buildOutlineInputBorder(),
+        errorStyle: TextStyle(fontSize: 12,fontFamily: "OpenSans-Regular", color: Color(0xffe81935)),
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey[500]),
       ),
