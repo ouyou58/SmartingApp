@@ -63,7 +63,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
                   ),
                   child: Row(
                     children: [
-                      Text(' ● ${item.name}', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600))
+                      Text(' ● ${item.name}', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600))
                     ],
                   ),
                 ),
@@ -108,7 +108,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
                   ),
                   child:Row(
                     children: [
-                      Text("・ 備品名  :  ",style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.w600)),
+                      Text(" ・ 備品名  :  ",style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.w600)),
                       Text(item.sub, style: TextStyle(color: Colors.black54, fontSize: 16),)
                     ],
                   ),
@@ -129,7 +129,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
                   ),
                   child:Row(
                     children: [
-                       Text("・ 個数  :  ",style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.w600)),
+                       Text(" ・ 個数  :  ",style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.w600)),
                        Text('${item.stock}個', style: TextStyle(color: Colors.black54, fontSize: 16)),
                     ],
                   ),

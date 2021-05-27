@@ -156,7 +156,7 @@ class _LoginViewState extends State<LoginView> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(Radius.circular(10))
                                   ),
-                                  child: Text(_isSignUp?'新規登録':'ログイン', style: TextStyle(color: Colors.white),),
+                                  child: Text(_isSignUp?'新規登録':'ログイン', style: TextStyle(color: Colors.white)),
                                   onPressed: () {
                                     if(_formKey.currentState!.validate()) {
                                       //todo: 入力チェックが正しいのか確認する。

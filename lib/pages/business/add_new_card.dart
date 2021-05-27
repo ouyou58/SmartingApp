@@ -20,12 +20,11 @@ class _AddNewCardState extends State<AddNewCard> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          // onPressed: () => showAlertDialog(),
           onPressed: () => Navigator.of(context).pop(),
           icon: Icon(Icons.arrow_back),
         ),
         title: Text("名刺追加"),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.orangeAccent,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -212,8 +211,9 @@ class _AddNewCardState extends State<AddNewCard> {
                     }
                   },
                 ),
-                RaisedButton(
+                CupertinoButton(
                   child: Text('保存'),
+                  color: Colors.orange,
                   onPressed: () {
                     this.showAlertDialog();
                   },
@@ -256,17 +256,18 @@ class _AddNewCardState extends State<AddNewCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  // ignore: deprecated_member_use
                   RaisedButton(
                     child: Text('保存しない'),
-                    color: Colors.red,
+                      color: Colors.orangeAccent.shade100,
                     onPressed: () {
                       Navigator.of(context).pop();
                     }
                   ),
-
+                  // ignore: deprecated_member_use
                   RaisedButton(
                     child: Text('保存します'),
-                    color: Colors.blue,
+                    color: Colors.orange,
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
