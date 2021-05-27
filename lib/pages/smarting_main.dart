@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarting/pages/business/add_new_card.dart';
@@ -8,12 +7,10 @@ import 'package:smarting/pages/equipment/equipment_manage.dart';
 import 'package:smarting/pages/smarting_side_drawer.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
-
 class SmartingMain extends Page {
 
   static final String pageName = 'SmartingAppMenu';
 
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       // 右上のdebug削除

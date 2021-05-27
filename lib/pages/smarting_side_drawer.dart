@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SmartingSideDrawer extends StatelessWidget {
@@ -91,6 +90,4 @@ class SmartingSideDrawer extends StatelessWidget {
         ),
     );
   }
-
-
 }

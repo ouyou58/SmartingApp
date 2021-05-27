@@ -10,6 +10,11 @@ void main() {
 }
 
 class SmartingApp extends StatelessWidget {
+
+  // 画面遷移先のページ名
+  static final String _GoLoginView = LoginView.pageName;
+  static final String _GoSmartingMain = SmartingMain.pageName;
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -17,21 +22,27 @@ class SmartingApp extends StatelessWidget {
       child : MaterialApp(
         home: Consumer<PageNotifier>(
           builder: (context, pageNotifier, child){
+
             return Navigator(
+
+                // 画面遷移先
                 pages : [
                   MaterialPage(
-                      key: ValueKey(LoginView.pageName),
-                      child: LoginView(title: '臨時ログイン画面')
+                      key: ValueKey(_GoLoginView),
+                      child: LoginView()
                   ),
-                  if(pageNotifier.currentPage == SmartingMain.pageName)SmartingMain(),
+                  if(pageNotifier.currentPage == _GoSmartingMain)SmartingMain(),
                 ],
+
+                // PopPage(バックページ)を防ぐ
                 onPopPage:(route, result){
                   if(!route.didPop(result)){
                     return false;
                   }
                   return true;
                 }
-                );
+            );
+
           },
         )
       )

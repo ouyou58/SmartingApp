@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarting/pages/smarting_main.dart';
@@ -7,9 +6,7 @@ import 'package:smarting/provider/page_notifier.dart';
 class LoginView extends StatefulWidget {
   static final String pageName = 'LoginView';
 
-  LoginView({Key? key,  required this.title}) : super(key: key);
-
-  final String title;
+  LoginView({Key? key}) : super(key: key);
 
   @override
   _LoginViewState createState() => _LoginViewState();
@@ -17,8 +14,8 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
-  bool isSignUp = true;
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  static bool _isSignUp = false;
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   TextEditingController _emailtextcontroller = TextEditingController();
   TextEditingController _passwordtextcontroller = TextEditingController();
@@ -64,15 +61,16 @@ class _LoginViewState extends State<LoginView> {
                             FlatButton(
                                 onPressed: (){
                                   setState(() {
-                                    isSignUp = false;
+                                    _isSignUp = false;
+                                    _formKey.currentState!.reset();
                                   });
                                 },
                                 child: Text(
                                   'ログイン',
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: isSignUp?FontWeight.w300:FontWeight.w600,
-                                      color: isSignUp?Colors.orange.shade300:Colors.orange.shade800,
+                                      fontWeight: _isSignUp?FontWeight.w300:FontWeight.w600,
+                                      color: _isSignUp?Colors.orange.shade300:Colors.orange.shade800,
                                   ),
                                 )
                             ),
@@ -80,15 +78,16 @@ class _LoginViewState extends State<LoginView> {
                             FlatButton(
                                 onPressed: (){
                                   setState(() {
-                                    isSignUp = true;
+                                    _isSignUp = true;
+                                    _formKey.currentState!.reset();
                                   });
                                 },
                                 child: Text(
                                   '新規登録',
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: isSignUp?FontWeight.w600:FontWeight.w300,
-                                      color: isSignUp?Colors.orange.shade800:Colors.orange.shade300,
+                                      fontWeight: _isSignUp?FontWeight.w600:FontWeight.w300,
+                                      color: _isSignUp?Colors.orange.shade800:Colors.orange.shade300,
                                   ),
                                 )
                             )
@@ -115,6 +114,7 @@ class _LoginViewState extends State<LoginView> {
                       child: Column(
                         children: <Widget>[
                           Container(
+                              height: 60,
                               padding: EdgeInsets.all(2),
                               child: Center(child:Image.asset('assets/images/smt_logo2.png')),
                               decoration: BoxDecoration(
@@ -131,46 +131,45 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           SizedBox(height: 10),
                           Container(
-                            height: 50,
+                            height: 60,
                             decoration: BoxDecoration(
                                 color: Colors.orange.shade50
                             ),
-                            child: buildTextFormField("メールを入力してください。", _emailtextcontroller)
+                            child: buildTextFormField('email', "メールを入力してください。", _emailtextcontroller)
                           ),
                           SizedBox(height: 10),
                           AnimatedContainer(
-                            height: isSignUp?0:50,
+                            height: _isSignUp?0:60,
                             duration: Duration(milliseconds: 100),
                             curve: Curves.fastLinearToSlowEaseIn,
                             decoration: BoxDecoration(
                                 color: Colors.orange.shade50
                             ),
-                            child: buildTextFormField("パスワードを入力してください。", _passwordtextcontroller)
+                            child: buildTextFormField('password', "パスワードを入力してください。", _passwordtextcontroller)
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 5),
                           Container(
                               // ignore: deprecated_member_use
                               child: RaisedButton(
-                                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 120),
+                                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 120),
                                   color: Colors.orange,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(20))
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
                                   ),
-                                  child: Text(isSignUp?'新規登録':'ログイン', style: TextStyle(color: Colors.white),),
+                                  child: Text(_isSignUp?'新規登録':'ログイン', style: TextStyle(color: Colors.white),),
                                   onPressed: () {
                                     if(_formKey.currentState!.validate()) {
+                                      //todo: 入力チェックが正しいのか確認する。
                                       print('入力チェック完了');
-
-                                      if (!isSignUp) {
+                                      if (!_isSignUp) {
                                         Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SmartingMain.pageName);
+                                        //todo: ログイン情報が正しく転送されるのか確認する。
                                         print('ログイン完了');
+                                        _formKey.currentState!.reset();
                                       } else {
-                                        //todo : ユーザ情報を登録するための仕様が立っていない。
+                                        //todo : ユーザ情報を登録するための処理方法を考えて追加する。
                                         print('新規登録完了');
                                       }
-
-                                    } else {
-
                                     }
                                   }
                               ),
@@ -178,7 +177,25 @@ class _LoginViewState extends State<LoginView> {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  Container(
+                      child: FlatButton(
+                          onPressed: (){
+                            setState(() {
+
+                            });
+                          },
+                          child: Text(
+                            'パスワードを忘れた方はこちらへ',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.orange.shade900,
+                              decoration: TextDecoration.underline
+                            ),
+                          )
+                      ),
+                  ),
                 ],
               ),
             ),
@@ -188,12 +205,26 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  TextFormField buildTextFormField(String insertText, TextEditingController useController) {
+  TextFormField buildTextFormField(String inputArea, String hintText, TextEditingController useController) {
     return TextFormField(
       controller: useController,
-      validator: (text){
-        if(text == null || text.isEmpty){
+      //入力チェック
+      validator: (inputData){
+        // Nullチェック
+        if(inputData == null || inputData.isEmpty){
           return '入力情報が空欄であります。';
+        }
+        // メール情報チェック
+        if(inputArea == 'email'){
+          if(!inputData.contains('@smarting.jp')){
+            return '指定メール(@smarting.jp)を使用してください。';
+          }
+        }
+        // パスワード情報チェック
+        if(inputArea == 'password'){
+          if(inputData.length < 8){
+            return 'パスワードは８文字以上で入力してください。';
+          }
         }
         return null;
       },
@@ -202,7 +233,7 @@ class _LoginViewState extends State<LoginView> {
         border: buildOutlineInputBorder(),
         enabledBorder: buildOutlineInputBorder(),
         focusedBorder: buildOutlineInputBorder(),
-        hintText: insertText,
+        hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey[500]),
       ),
     );
