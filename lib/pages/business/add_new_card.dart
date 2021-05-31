@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../../pages/business/take_picture.dart';
+import 'package:smarting/pages/business/camera_select.dart';
 
 class AddNewCard extends StatefulWidget {
   const AddNewCard({Key? key}) : super(key: key);
@@ -23,7 +24,12 @@ class _AddNewCardState extends State<AddNewCard> {
           onPressed: () => Navigator.of(context).pop(),
           icon: Icon(Icons.arrow_back),
         ),
-        title: Text("名刺追加"),
+        title: Text(
+          '名刺追加',
+          style: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600
+          ),
+        ),
         backgroundColor: Colors.orangeAccent,
       ),
       body: Center(
@@ -46,35 +52,58 @@ class _AddNewCardState extends State<AddNewCard> {
                   ),
                 ),
                 Text(
-                  '写真正面',
+                  '名刺正面',
                   textAlign: TextAlign.start,
                 ),
-                IconButton(
-                  icon: const Icon(Icons.camera_alt_outlined),
-                  iconSize: 100,
-                  color: Colors.black,
-                  onPressed: () {
-                    Navigator.push(
+                InkWell(
+                  child: Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black54),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.photo_camera_outlined, size: 100,
+                      ),
+                    ),
+                    //child: Center(child: Image.asset(pic!),),
+                    height: 200,
+                    margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  ),
+                  onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TakePicture()),
-                    );
-                  },
+                      MaterialPageRoute(builder: (context) => CameraSelect())
+                  ),
                 ),
                 Text(
-                  '写真裏面',
-                  textAlign: TextAlign.right,
+                  '名刺裏面',
+                  textAlign: TextAlign.start,
                 ),
-                IconButton(
-                  icon: const Icon(Icons.camera_alt_outlined),
-                  iconSize: 100,
-                  color: Colors.black,
-                  onPressed: () {
-                    Navigator.push(
+                InkWell(
+                  child: Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black54),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.photo_camera_outlined, size: 100,
+                      ),
+                    ),
+                    //child: Center(child: Image.asset(pic!),),
+                    height: 200,
+                    margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  ),
+                  onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => TakePicture()),
-                    );
-                  },
+                      MaterialPageRoute(builder: (context) => CameraSelect())
+                  ),
                 ),
+
                 // Layout
                 const Divider(
                   height: 20,

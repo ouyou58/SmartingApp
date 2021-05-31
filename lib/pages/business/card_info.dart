@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smarting/pages/business/take_picture.dart';
+import 'package:smarting/pages/business/business_card_list.dart';
+import 'package:smarting/pages/business/camera_select.dart';
 
 class cardInfo extends StatefulWidget{
   // final List<BusinessCardModel> itemData;
@@ -26,8 +29,13 @@ class _cardInfo extends State<cardInfo>{
           onPressed: () => Navigator.of(context).pop(),
           icon: Icon(Icons.close),
         ),
-        title: Text("名刺追加"),
-        backgroundColor: Colors.amber,
+        title: Text(
+          '名刺追加',
+          style: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600
+          ),
+        ),
+        backgroundColor: Colors.orangeAccent,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -48,7 +56,7 @@ class _cardInfo extends State<cardInfo>{
               ),
               onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => cardInfo())
+                  MaterialPageRoute(builder: (context) => CameraSelect())
               ),
             ),
             Text(
@@ -64,7 +72,7 @@ class _cardInfo extends State<cardInfo>{
               ),
               onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => cardInfo())
+                  MaterialPageRoute(builder: (context) => CameraSelect())
               ),
             ),
             const Divider(
