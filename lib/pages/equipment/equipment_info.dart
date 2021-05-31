@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smarting/model/list.dart';
+import 'package:smarting/pages/business/camera_select.dart';
 
 class EquipmentInfo extends StatefulWidget{
   final Data item;
@@ -80,7 +81,10 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
                 height: 200,
                 margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
               ),
-              onTap: () {},
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CameraSelect())
+              ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
