@@ -218,24 +218,37 @@ class _LoginViewState extends State<LoginView> {
                                       //ログイン情報が正しく転送される。
                                       if (_isSignUpFlag == false) {
                                         try{
-                                          await _auth.signInWithEmailAndPassword(email: _email, password: _password);
-                                        }catch(e) {
-                                          print('aaa');
-                                        }
+                                          // Firebase側に入力情報が存在する場合、AUTHデータを格納する。
+                                          final account = await _auth.signInWithEmailAndPassword(email: _email, password: _password);
 
-                                        // ページ遷移先を指定する。
-                                        Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SmartingMain.pageName);
-                                        // formに書き込んでいたデータを初期化する。
-                                        _formKey.currentState!.reset();
+                                          // Firebase側から受け取ったAUTHデータが正しいのか判断する。
+                                          if(account != null){
+                                            // ページ遷移先を指定する。
+                                            Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SmartingMain.pageName);
+                                          }else {
+                                            //todo : Firebase側から受け取ったデータが正しくないため、警告メッセージをだす。
+                                            print('aaa');
+                                          }
+                                        }catch(e) {
+                                          print(e);
+                                        }
                                       }
                                       //ユーザ情報を登録する。
                                       if(_isSignUpFlag == true) {
                                         try{
-                                          await _auth.createUserWithEmailAndPassword(email: _email, password: defpass);
+                                          // ユーザー側のメールアドレスと臨時のパスワードを書き込む。
+                                          final account = await _auth.createUserWithEmailAndPassword(email: _email, password: defpass);
+
+                                          // ユーザー側のメールアドレスと臨時のパスワードが正しいのか判断する。
+                                          if(account != null){
+                                            print('ccc');
+                                          }
                                         }catch(e){
-                                          print('bbb');
+                                          print(e);
                                         }
                                       }
+                                      // ユーザー側の入力情報が書き込んでいたデータを初期化する。
+                                      _formKey.currentState!.reset();
                                     }
                                   }
                               ),
