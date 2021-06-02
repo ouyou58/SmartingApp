@@ -1,72 +1,150 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smarting/model/business_card_model.dart';
 import 'package:smarting/pages/business/card_info.dart';
+import 'package:smarting/widget/slidable_widget.dart';
+import 'package:smarting/model/card_list.dart';
+import 'package:smarting/model/card.dart';
 
-class BusinessName extends StatelessWidget {
-  //　TODO データベースから取得情報
-
-  List<BusinessCardModel> itemData = [
-    BusinessCardModel(
-        businessCard: 'assets/images/smarting.png',
-        companyName: 'スマートアイエンジー株式会社',
-        name: '神津　里見'),
-    BusinessCardModel(
-        businessCard: 'assets/images/sbi.png',
-        companyName: 'SBI株式会社',
-        name: '石原　さとみ'),
-    BusinessCardModel(
-        businessCard: 'assets/images/fujisoft.png',
-        companyName: '富士ソフト株式会社',
-        name: '松本　大樹')
-  ];
-
+class BusinessName extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    if (itemData == 0) {
-      return Center(child: Text("there is nothing"));
-    } else {
-      return ListView.builder(
-          itemCount: itemData.length,
-          itemBuilder: (context, index) {
-            return CardItem(
-              index: index,itemData: itemData,
-            );
-          });
-    }
-  }
+  _BusinessNameState createState() => _BusinessNameState();
 }
 
-// 名刺リストitem
-class CardItem extends StatelessWidget {
-  final int index;
-  final List<BusinessCardModel> itemData;
-
-  const CardItem(
-      {required this.index,required this.itemData});
+class _BusinessNameState extends State<BusinessName> {
+  List<CardData> business = List.of(ListC.listData);
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+        body: ListView.separated(
+          physics: BouncingScrollPhysics(),
+          itemCount: business.length,
+          itemBuilder: (context, index) {
+            final equipmentList = business[index];
+            //横スクロール機能呼び出し
+            return SlidableWidget(
+                child: buildCardList(equipmentList),
+                onDismissed: (action) =>
+                    dismissSlidableItem(context, index, action)
+            );
+          },
+          separatorBuilder: (context, index) => Divider(),
+        )
+    );
+  }
+
+  Widget buildCardList(CardData item){
     return Column(
-      children: [
-        InkWell(
-          child: Container(child: Image.asset(itemData[index].businessCard)),
-          onTap: () => Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => cardInfo())
-          ),
-        ),
-        Container(
-          child: Row(
-            children: [Text('会社：'), Text(itemData[index].companyName)],
-          ),
-        ),
-        Container(
-          child: Row(
-            children: [Text('名前:'), Text(itemData[index].name)],
-          ),
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+
+      children: <Widget>[
+        Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: <Widget> [
+                SizedBox(height: 15),
+                Container(
+                  height: 45,
+                  decoration: BoxDecoration(
+                    color: Colors.orangeAccent.shade200,
+                    borderRadius: BorderRadius.circular(2),
+                    boxShadow: [
+                      BoxShadow(
+                        color : Color.fromRGBO(255, 204, 51, 5),
+                        blurRadius: 15.0,
+                        offset: Offset(0, 8)
+                      )
+                    ]
+                  ),
+                  child: Row(
+                    children: [
+                      Text(' ● ${item.companyName}', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600))
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10),
+                InkWell(
+                  child: Container(
+                    height: 275,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(item.businessCard),
+                            fit: BoxFit.fitHeight
+                        ),
+                        color: Colors.grey.shade50,
+                        boxShadow: [
+                          BoxShadow(
+                              color : Color.fromRGBO(255, 204, 51, 5),
+                              blurRadius: 10.0,
+                              offset: Offset(0, 10)
+                          )
+                        ]
+                    ),
+                  ),
+                  onTap: () => Navigator.push(
+                      context,
+                      //item伝送
+                      MaterialPageRoute(builder: (context) => cardInfo(item: item))
+                  ),
+                ),
+                SizedBox(height: 5),
+                Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                      color: Colors.orangeAccent.shade100,
+                      borderRadius: BorderRadius.circular(1),
+                      boxShadow: [
+                        BoxShadow(
+                            color : Color.fromRGBO(255, 153, 0, 10),
+                            blurRadius: 5.0,
+                            offset: Offset(0, 2)
+                        )
+                      ]
+                  ),
+                  child:Row(
+                    children: [
+                      Text(" ・ 名前  :  ",style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.w600)),
+                      Text(item.name, style: TextStyle(color: Colors.black54, fontSize: 16),)
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5),
+                Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                      color: Colors.orangeAccent.shade200,
+                      borderRadius: BorderRadius.circular(1),
+                      boxShadow: [
+                        BoxShadow(
+                            color : Color.fromRGBO(255, 153, 0, 10),
+                            blurRadius: 10.0,
+                            offset: Offset(0, 5)
+                        )
+                      ]
+                  ),
+                  child:Row(
+                    children: [
+                      Text(" ・ 電話  :  ",style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.w600)),
+                      Text(item.phone, style: TextStyle(color: Colors.black54, fontSize: 16),)
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15)
+              ],
+            )
         )
       ],
     );
+
+
+  }
+  //横スライド時、削除機能
+  void dismissSlidableItem(
+      BuildContext context, int index, SlidableAction action) {
+    setState(() {
+      business.removeAt(index);
+    });
   }
 }

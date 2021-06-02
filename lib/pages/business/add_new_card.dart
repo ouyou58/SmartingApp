@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../../pages/business/take_picture.dart';
 import 'package:smarting/pages/business/camera_select.dart';
 
 class AddNewCard extends StatefulWidget {
@@ -11,6 +10,8 @@ class AddNewCard extends StatefulWidget {
 }
 
 class _AddNewCardState extends State<AddNewCard> {
+  String? businessCard;
+  String? companyName = "入力してください。";
   String? name = "入力してください。";
   String? phone = "入力してください。";
   String? address = "入力してください。";
@@ -123,6 +124,35 @@ class _AddNewCardState extends State<AddNewCard> {
                       fontStyle: FontStyle.normal,
                     ),
                   ),
+                ),
+                Text(
+                  "会社名　あなたの入力 : ${this.companyName}",
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                TextField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 1,
+                  minLines: 1,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "会社名",
+                    hintText: "会社名を入力してください！",
+                  ),
+
+                  // 変更を即時反映する。
+                  onChanged: (text) {
+                    if (text.length > 0) {
+                      // 入力値があるなら、それを反映する。
+                      setState(() {
+                        this.phone = text;
+                      });
+                    }
+                    else {
+                      setState(() {
+                        this.phone = "入力してください。";
+                      });
+                    }
+                  },
                 ),
                 Text(
                   "お名前　あなたの入力 : ${this.name}",
@@ -240,13 +270,27 @@ class _AddNewCardState extends State<AddNewCard> {
                     }
                   },
                 ),
-                CupertinoButton(
-                  child: Text('保存'),
-                  color: Colors.orange,
-                  onPressed: () {
-                    this.showAlertDialog();
-                  },
-                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      CupertinoButton(
+                        child: Text('初期化'),
+                        color: Colors.orangeAccent.shade100,
+                        onPressed: () {
+                        },
+                      ),
+                      CupertinoButton(
+                        child: Text('登録'),
+                        color: Colors.orange,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
         ),

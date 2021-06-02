@@ -144,13 +144,13 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
                 children: <Widget>[
                   CupertinoButton(
                     child: Text('初期化'),
-                    color: Colors.black26,
+                    color: Colors.orangeAccent.shade100,
                     onPressed: () {
                     },
                   ),
                   CupertinoButton(
                     child: Text('登録'),
-                    color: Colors.red[300],
+                    color: Colors.orange,
                     onPressed: () {},
                   ),
                 ],

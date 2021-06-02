@@ -1,45 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:smarting/model/card_list.dart';
+import 'package:smarting/model/card.dart';
+import 'package:smarting/widget/slidable_widget.dart';
+import 'package:smarting/pages/business/card_info.dart';
+import 'package:smarting/model/list.dart';
+import 'package:smarting/model/data.dart';
 
 class BusinessCardList extends StatefulWidget {
+
   @override
   _BusinessCardListState createState() => new _BusinessCardListState();
 }
 
 class _BusinessCardListState extends State<BusinessCardList> {
+  List<CardData> business = List.of(ListC.listData);
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: new AppBar(
-          title: Text(
-            '名刺リスト',
-            style: TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600
-            ),
+      appBar: new AppBar(
+        title: Text(
+          '名刺リスト',
+          style: TextStyle(
+            color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600
           ),
-          backgroundColor: Colors.orangeAccent,
         ),
-        body: ListView(
-            children: List.generate(10, (index) {
-              return InkWell(
-                onTap: (){
-                  // ここに画面遷移の処理を追加する
-                },
-                child: Card(
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset("assets/images/smarting.png"),
-                      Container(
-                          margin: EdgeInsets.all(10.0),
-                          child: ListTile(
-                            title: Text("screen$index.jpg"),
-                            leading: Icon(Icons.person),
-                            subtitle: Text("サブタイトル"),
-                          )),
-                    ],
+        backgroundColor: Colors.orangeAccent,
+      ),
+      body: ListView(
+        children: List.generate(10, (index) {
+          return InkWell(
+            onTap: (){
+              // ここに画面遷移の処理を追加する
+            },
+            child: Card(
+              child: Column(
+                children: <Widget>[
+                  // Image.asset("assets/images/smarting.png"),
+                  Image.asset('assets/images/'),
+                  Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: ListTile(
+                      title: Text('photo$index.png'),
+                      leading: Icon(Icons.file_copy),
+                      subtitle: Text('ddddd'),
+
+                    )
                   ),
-                ),
-              );
-            })));
+                  Image.asset('assets/images/sbi.png'),
+                  Image.asset('assets/images/fujisoft.png'),
+                ],
+              ),
+            ),
+          );
+        })
+      )
+    );
   }
 }
 

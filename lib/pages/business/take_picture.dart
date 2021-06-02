@@ -42,7 +42,7 @@ class _TakePictureState extends State<TakePicture> {
               // ),
             ),
 
-            ],
+          ],
         ),
       ),
     );

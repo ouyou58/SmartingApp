@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:smarting/pages/business/take_picture.dart';
-import 'package:smarting/pages/business/business_card_list.dart';
 import 'package:smarting/pages/business/camera_select.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:smarting/model/card_list.dart';
 
 class cardInfo extends StatefulWidget{
-  // final List<BusinessCardModel> itemData;
-  //
-  // const cardInfo({Key? key, required this.itemData}) : super(key: key);
+  final CardData item;
+
+  const cardInfo({Key? key, required this.item}) : super(key: key);
 
   @override
-  _cardInfo createState() => _cardInfo();
+  _cardInfoState createState() => _cardInfoState();
 }
 
-class _cardInfo extends State<cardInfo>{
+class _cardInfoState extends State<cardInfo>{
 
   @override
   void initState(){
@@ -21,6 +22,12 @@ class _cardInfo extends State<cardInfo>{
 
   @override
   Widget build(BuildContext context) {
+    String _businessCard = widget.item.businessCard;
+    String _companyName = widget.item.companyName;
+    String _name = widget.item.name;
+    String _phone = widget.item.phone;
+    String _address = widget.item.address;
+    String _station = widget.item.station;
 
     return Scaffold(
       appBar: AppBar(
@@ -49,10 +56,9 @@ class _cardInfo extends State<cardInfo>{
             ),
             InkWell(
               child: Container(
-                child: Image.asset(
-                  'assets/images/smarting.png',
-                  height: 200,
-                ),
+                child: Center(child: Image.asset(_businessCard),),
+                height: 275,
+                margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
               ),
               onTap: () => Navigator.push(
                   context,
@@ -65,10 +71,9 @@ class _cardInfo extends State<cardInfo>{
             ),
             InkWell(
               child: Container(
-                child: Image.asset(
-                  'assets/images/smarting.png',
-                  height: 200,
-                ),
+                child: Center(child: Image.asset(_businessCard),),
+                height: 275,
+                margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
               ),
               onTap: () => Navigator.push(
                   context,
@@ -84,7 +89,20 @@ class _cardInfo extends State<cardInfo>{
             Container(
               padding: EdgeInsets.all(10),
               child: TextFormField(
-                initialValue: '神津　里見',
+                initialValue: _companyName,
+                keyboardType: TextInputType.multiline,
+                maxLines: 1,
+                minLines: 1,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "会社名",
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: TextFormField(
+                initialValue: _name,
                 keyboardType: TextInputType.multiline,
                 maxLines: 1,
                 minLines: 1,
@@ -97,7 +115,7 @@ class _cardInfo extends State<cardInfo>{
             Container(
               padding: EdgeInsets.all(10),
               child: TextFormField(
-                initialValue: '080-1234-5678',
+                initialValue: _phone,
                 keyboardType: TextInputType.multiline,
                 maxLines: 1,
                 minLines: 1,
@@ -110,7 +128,7 @@ class _cardInfo extends State<cardInfo>{
             Container(
               padding: EdgeInsets.all(10),
               child: TextFormField(
-                initialValue: 'スマートアイエンジー株式会社',
+                initialValue: _address,
                 keyboardType: TextInputType.multiline,
                 maxLines: 1,
                 minLines: 1,
@@ -123,7 +141,7 @@ class _cardInfo extends State<cardInfo>{
             Container(
               padding: EdgeInsets.all(10),
               child: TextFormField(
-                initialValue: '浅草橋駅',
+                initialValue: _station,
                 keyboardType: TextInputType.multiline,
                 maxLines: 1,
                 minLines: 1,
@@ -133,12 +151,27 @@ class _cardInfo extends State<cardInfo>{
                 ),
               ),
             ),
-            RaisedButton(
-              child: Text('保存'),
-              onPressed: () {
-                this.showAlertDialog();
-              },
-            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  CupertinoButton(
+                    child: Text('初期化'),
+                    color: Colors.orangeAccent.shade100,
+                    onPressed: () {
+                    },
+                  ),
+                  CupertinoButton(
+                    child: Text('登録'),
+                    color: Colors.orange,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -178,7 +211,7 @@ class _cardInfo extends State<cardInfo>{
                 children: [
                   RaisedButton(
                       child: Text('保存しない'),
-                      color: Colors.red,
+                      // color: Colors.red,
                       onPressed: () {
                         Navigator.of(context).pop();
                       }
@@ -186,7 +219,7 @@ class _cardInfo extends State<cardInfo>{
 
                   RaisedButton(
                     child: Text('保存します'),
-                    color: Colors.blue,
+                    // color: Colors.blue,
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
