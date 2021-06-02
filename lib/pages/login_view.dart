@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarting/pages/smarting_main.dart';
@@ -14,11 +15,35 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
-  static bool _isSignUp = false;
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailtextcontroller = TextEditingController();
-  TextEditingController _passwordtextcontroller = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+  static final String defpass = '12345678';
+
+
+  // インプットデータの結果を格納
+  late String _email;
+  late String _password;
+
+  // テキストボックスが空である場合のテキスト
+  static final String hintemail = "メールを入力してください。";
+  static final String hintpassword = "パスワードを入力してください。";
+
+  // イメージ格納先のパス
+  static final String bglogin = 'assets/images/bglogin.png';
+  static final String smt_logo2 = 'assets/images/smt_logo2.png';
+
+  // テキストボックスに誤りがある場合の警告テキスト
+  static final String erremail = '指定メール(@smarting.jp)を使用してください。';
+  static final String errpassword = 'パスワードは8文字以上で入力してください。';
+
+  // パスワード探しのタイトル
+  static final String searchpassword = 'パスワードを忘れた方はこちらへ';
+
+  // フラグ設定 (ログイン ・ 新規登録)
+  bool _isSignUpFlag = false;
+  static final String signup = '新規登録';
+  static final String login = 'ログイン';
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +52,7 @@ class _LoginViewState extends State<LoginView> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/bglogin.png'),
+            image: AssetImage(bglogin),
             fit: BoxFit.fill,
             colorFilter: ColorFilter.mode(Colors.orangeAccent, BlendMode.color)
           )
@@ -61,16 +86,16 @@ class _LoginViewState extends State<LoginView> {
                             FlatButton(
                                 onPressed: (){
                                   setState(() {
-                                    _isSignUp = false;
+                                    _isSignUpFlag = false;
                                     _formKey.currentState!.reset();
                                   });
                                 },
                                 child: Text(
-                                  'ログイン',
+                                  login,
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: _isSignUp?FontWeight.w300:FontWeight.w600,
-                                      color: _isSignUp?Colors.orange.shade300:Colors.orange.shade800,
+                                      fontWeight: _isSignUpFlag?FontWeight.w300:FontWeight.w600,
+                                      color: _isSignUpFlag?Colors.orange.shade300:Colors.orange.shade800,
                                   ),
                                 )
                             ),
@@ -78,16 +103,16 @@ class _LoginViewState extends State<LoginView> {
                             FlatButton(
                                 onPressed: (){
                                   setState(() {
-                                    _isSignUp = true;
+                                    _isSignUpFlag = true;
                                     _formKey.currentState!.reset();
                                   });
                                 },
                                 child: Text(
-                                  '新規登録',
+                                  signup,
                                   style: TextStyle(
                                       fontSize: 15,
-                                      fontWeight: _isSignUp?FontWeight.w600:FontWeight.w300,
-                                      color: _isSignUp?Colors.orange.shade800:Colors.orange.shade300,
+                                      fontWeight: _isSignUpFlag?FontWeight.w600:FontWeight.w300,
+                                      color: _isSignUpFlag?Colors.orange.shade800:Colors.orange.shade300,
                                   ),
                                 )
                             )
@@ -114,9 +139,9 @@ class _LoginViewState extends State<LoginView> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                              height: 60,
+                              height: 50,
                               padding: EdgeInsets.all(2),
-                              child: Center(child:Image.asset('assets/images/smt_logo2.png')),
+                              child: Center(child:Image.asset(smt_logo2)),
                               decoration: BoxDecoration(
                                   color: Colors.orange.shade200,
                                   borderRadius: BorderRadius.circular(10),
@@ -135,17 +160,47 @@ class _LoginViewState extends State<LoginView> {
                             decoration: BoxDecoration(
                                 color: Colors.orange.shade50
                             ),
-                            child: buildTextFormField('email', "メールを入力してください。", _emailtextcontroller)
+                            child: TextFormField(
+                              keyboardType: TextInputType.emailAddress,
+                              onChanged: (emailtext){
+                                setState(() {
+                                  _email = emailtext.trim();
+                                });
+                              },
+                              validator: (emailtext){
+                                if(!emailtext!.contains('@smarting.jp')){
+                                  return erremail;
+                                }
+                                return null;
+                              },
+                              decoration: buildTextInputDecoration(hintemail),
+                              cursorColor: Colors.grey,
+                            ),
                           ),
                           SizedBox(height: 10),
                           AnimatedContainer(
-                            height: _isSignUp?0:70,
+                            height: _isSignUpFlag?0:70,
                             duration: Duration(milliseconds: 1500),
                             curve: Curves.fastLinearToSlowEaseIn,
                             decoration: BoxDecoration(
                                 color: Colors.orange.shade50
                             ),
-                            child: buildTextFormField('password', "パスワードを入力してください。", _passwordtextcontroller)
+                            child: TextFormField(
+                              obscureText: true,
+                              onChanged: (passtext){
+                                setState(() {
+                                  _password = passtext.trim();
+                                });
+                              },
+                              validator: (passtext){
+                                if(passtext == null || passtext.isEmpty || passtext.length < 8) {
+                                  return errpassword;
+                                }
+                                return null;
+                              },
+                              decoration: buildTextInputDecoration(hintpassword),
+                              cursorColor: Colors.grey,
+                            ),
                           ),
                           SizedBox(height: 5),
                           Container(
@@ -156,19 +211,30 @@ class _LoginViewState extends State<LoginView> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(Radius.circular(10))
                                   ),
-                                  child: Text(_isSignUp?'新規登録':'ログイン', style: TextStyle(color: Colors.white)),
-                                  onPressed: () {
+                                  child: Text(_isSignUpFlag?signup:login, style: TextStyle(color: Colors.white)),
+                                  onPressed: () async {
                                     if(_formKey.currentState!.validate()) {
-                                      //todo: 入力チェックが正しいのか確認する。
-                                      print('入力チェック完了');
-                                      if (!_isSignUp) {
+
+                                      //ログイン情報が正しく転送される。
+                                      if (_isSignUpFlag == false) {
+                                        try{
+                                          await _auth.signInWithEmailAndPassword(email: _email, password: _password);
+                                        }catch(e) {
+                                          print('aaa');
+                                        }
+
+                                        // ページ遷移先を指定する。
                                         Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SmartingMain.pageName);
-                                        //todo: ログイン情報が正しく転送されるのか確認する。
-                                        print('ログイン完了');
+                                        // formに書き込んでいたデータを初期化する。
                                         _formKey.currentState!.reset();
-                                      } else {
-                                        //todo : ユーザ情報を登録するための処理方法を考えて追加する。
-                                        print('新規登録完了');
+                                      }
+                                      //ユーザ情報を登録する。
+                                      if(_isSignUpFlag == true) {
+                                        try{
+                                          await _auth.createUserWithEmailAndPassword(email: _email, password: defpass);
+                                        }catch(e){
+                                          print('bbb');
+                                        }
                                       }
                                     }
                                   }
@@ -187,10 +253,10 @@ class _LoginViewState extends State<LoginView> {
                             });
                           },
                           child: Text(
-                            'パスワードを忘れた方はこちらへ',
+                            searchpassword,
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w800,
                               color: Colors.orange.shade900,
                               decoration: TextDecoration.underline
                             ),
@@ -205,44 +271,18 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
-
-  TextFormField buildTextFormField(String inputArea, String hintText, TextEditingController useController) {
-    return TextFormField(
-      textAlignVertical: TextAlignVertical.center,
-      controller: useController,
-      //入力チェック
-      validator: (inputData){
-        // Nullチェック
-        if(inputData == null || inputData.isEmpty){
-          return '入力情報が空欄であります。';
-        }
-        // メール情報チェック
-        if(inputArea == 'email'){
-          if(!inputData.contains('@smarting.jp')){
-            return '指定メール(@smarting.jp)を使用してください。';
-          }
-        }
-        // パスワード情報チェック
-        if(inputArea == 'password'){
-          if(inputData.length < 8){
-            return 'パスワードは８文字以上で入力してください。';
-          }
-        }
-        return null;
-      },
-      cursorColor: Colors.grey,
-      decoration: InputDecoration(
+    // テキストボックスのレイアウト設定
+    InputDecoration buildTextInputDecoration(String hint){
+      return InputDecoration(
+        hintText: hint,
         contentPadding: EdgeInsets.symmetric(vertical: 17, horizontal: 20),
         border: buildOutlineInputBorder(),
         enabledBorder: buildOutlineInputBorder(),
         focusedBorder: buildOutlineInputBorder(),
-        errorStyle: TextStyle(fontSize: 12,fontFamily: "OpenSans-Regular", color: Color(0xffe81935)),
-        hintText: hintText,
-        hintStyle: TextStyle(color: Colors.grey[500]),
-      ),
-    );
-  }
-
+        hintStyle: TextStyle(color: Colors.grey[500])
+      );
+    }
+  // テキストボックスのレイアウト設定２
   OutlineInputBorder buildOutlineInputBorder() {
     return OutlineInputBorder(
         borderRadius : BorderRadius.circular(4),

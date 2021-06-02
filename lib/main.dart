@@ -1,11 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarting/pages/login_view.dart';
 import 'package:smarting/pages/smarting_main.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(SmartingApp());
 }
 
@@ -42,7 +44,6 @@ class SmartingApp extends StatelessWidget {
                   return true;
                 }
             );
-
           },
         )
       )
