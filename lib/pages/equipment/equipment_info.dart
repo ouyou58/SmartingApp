@@ -30,7 +30,7 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.orangeAccent,
         title: Text(
           '備品管理',
           style: TextStyle(
