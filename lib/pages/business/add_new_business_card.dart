@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:smarting/pages/business/camera_select.dart';
 
-class AddNewCard extends StatefulWidget {
-  const AddNewCard({Key? key}) : super(key: key);
+class AddNewBusinessCard extends StatefulWidget {
+  const AddNewBusinessCard({Key? key}) : super(key: key);
+
   @override
-  _AddNewCardState createState() => _AddNewCardState();
+  _AddNewBusinessCardState createState() => _AddNewBusinessCardState();
 }
 
-class _AddNewCardState extends State<AddNewCard> {
+class _AddNewBusinessCardState extends State<AddNewBusinessCard> {
   String? businessCard;
   String? companyName = "入力してください。";
   String? name = "入力してください。";
@@ -23,7 +24,7 @@ class _AddNewCardState extends State<AddNewCard> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back_outlined),
         ),
         title: Text(
           '名刺追加',
@@ -144,12 +145,12 @@ class _AddNewCardState extends State<AddNewCard> {
                     if (text.length > 0) {
                       // 入力値があるなら、それを反映する。
                       setState(() {
-                        this.phone = text;
+                        this.companyName = text;
                       });
                     }
                     else {
                       setState(() {
-                        this.phone = "入力してください。";
+                        this.companyName = "入力してください。";
                       });
                     }
                   },

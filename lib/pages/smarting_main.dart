@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smarting/pages/business/add_new_card.dart';
-import 'package:smarting/pages/business/business_name.dart';
+import 'package:smarting/pages/business/add_new_business_card.dart';
+import 'package:smarting/pages/business/business_manage.dart';
 import 'package:smarting/pages/equipment/add_new_equipment.dart';
 import 'package:smarting/pages/equipment/equipment_manage.dart';
 import 'package:smarting/pages/smarting_side_drawer.dart';
@@ -36,7 +36,7 @@ class BottomNavigationController extends StatefulWidget {
 class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
   int tabBarIndex = 0;
-  final pages = [EquipmentManage(), BusinessName()];
+  final pages = [EquipmentManage(), BusinessManage()];
 
   // タブバー
   final tabBarTitles = ['備品管理', '名刺管理'];
@@ -95,7 +95,7 @@ class _BottomNavigationControllerState
           context, MaterialPageRoute(builder: (context) => AddNewEquipment()));
     }else if (tabBarIndex == 1) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AddNewCard()));
+          context, MaterialPageRoute(builder: (context) => AddNewBusinessCard()));
     }
   }
 }

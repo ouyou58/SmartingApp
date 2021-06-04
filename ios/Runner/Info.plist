@@ -41,6 +41,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
+	<key>Privacy – Photo Library Usage Description</key>
+	<string>ユーザーに表示されます</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>ライブラリにアクセスするよ</string>
+    <key>NSCameraUsageDescription</key>
+    <string>カメラにアクセスするよ</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>マイクにアクセスするよ</string>
 </dict>
 </plist>

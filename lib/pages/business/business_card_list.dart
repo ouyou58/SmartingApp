@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smarting/model/card_list.dart';
 import 'package:smarting/model/card.dart';
-import 'package:smarting/widget/slidable_widget.dart';
-import 'package:smarting/pages/business/card_info.dart';
-import 'package:smarting/model/list.dart';
-import 'package:smarting/model/data.dart';
 
 class BusinessCardList extends StatefulWidget {
 
@@ -14,7 +10,6 @@ class BusinessCardList extends StatefulWidget {
 
 class _BusinessCardListState extends State<BusinessCardList> {
   List<CardData> business = List.of(ListC.listData);
-
 
   @override
   Widget build(BuildContext context) {

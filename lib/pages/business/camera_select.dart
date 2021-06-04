@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smarting/pages/business/take_picture.dart';
-import 'package:smarting/pages/business/business_card_list.dart';
-// import 'package:smarting/pages/business/image_picker_view.dart';
-// import 'package:smarting/pages/business/file_controller.dart';
+import 'package:smarting/pages/business/library.dart';
+import 'package:smarting/pages/business/camera.dart';
+import 'package:smarting/pages/smarting_main.dart';
 
 class CameraSelect extends StatefulWidget {
 
@@ -16,6 +15,13 @@ class _CameraSelectState extends State<CameraSelect> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BottomNavigationController())
+          ),
+          icon: Icon(Icons.arrow_back_outlined),
+        ),
         title: Text(
           'カメラとリスト',
           style: TextStyle(
@@ -45,7 +51,7 @@ class _CameraSelectState extends State<CameraSelect> {
                           'カメラ起動',
                           // textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize:20,
+                            fontSize:18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -60,8 +66,7 @@ class _CameraSelectState extends State<CameraSelect> {
               ),
               onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TakePicture())
-                  // MaterialPageRoute(builder: (context) => ImagePickerView())
+                  MaterialPageRoute(builder: (context) => CameraApp())
               ),
             ),
             InkWell(
@@ -82,7 +87,7 @@ class _CameraSelectState extends State<CameraSelect> {
                           'ライブラリーリスト',
                           // textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize:20,
+                            fontSize:18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -97,7 +102,8 @@ class _CameraSelectState extends State<CameraSelect> {
               ),
               onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BusinessCardList())
+                  // MaterialPageRoute(builder: (context) => BusinessCardList())
+                  MaterialPageRoute(builder: (context) => Library())
               ),
             ),
           ],

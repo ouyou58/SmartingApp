@@ -4,16 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:smarting/model/card_list.dart';
 
-class cardInfo extends StatefulWidget{
+class BusinessCardInfo extends StatefulWidget{
   final CardData item;
-
-  const cardInfo({Key? key, required this.item}) : super(key: key);
+  const BusinessCardInfo({Key? key, required this.item}) : super(key: key);
 
   @override
-  _cardInfoState createState() => _cardInfoState();
+  _BusinessCardInfoState createState() => _BusinessCardInfoState();
 }
 
-class _cardInfoState extends State<cardInfo>{
+class _BusinessCardInfoState extends State<BusinessCardInfo>{
 
   @override
   void initState(){
@@ -34,7 +33,7 @@ class _cardInfoState extends State<cardInfo>{
         leading: IconButton(
           // onPressed: () => showAlertDialog(),
           onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(Icons.close),
+          icon: Icon(Icons.arrow_back_outlined),
         ),
         title: Text(
           '名刺追加',

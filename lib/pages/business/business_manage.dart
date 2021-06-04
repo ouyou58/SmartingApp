@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smarting/pages/business/card_info.dart';
+import 'package:smarting/pages/business/business_card_info.dart';
 import 'package:smarting/widget/slidable_widget.dart';
 import 'package:smarting/model/card_list.dart';
 import 'package:smarting/model/card.dart';
 
-class BusinessName extends StatefulWidget {
+class BusinessManage extends StatefulWidget {
+
   @override
-  _BusinessNameState createState() => _BusinessNameState();
+  _BusinessManageState createState() => _BusinessManageState();
 }
 
-class _BusinessNameState extends State<BusinessName> {
+class _BusinessManageState extends State<BusinessManage> {
   List<CardData> business = List.of(ListC.listData);
 
   @override
@@ -86,7 +87,7 @@ class _BusinessNameState extends State<BusinessName> {
                   onTap: () => Navigator.push(
                       context,
                       //item伝送
-                      MaterialPageRoute(builder: (context) => cardInfo(item: item))
+                      MaterialPageRoute(builder: (context) => BusinessCardInfo(item: item))
                   ),
                 ),
                 SizedBox(height: 5),
