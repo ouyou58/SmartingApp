@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:smarting/pages/business/camera_select.dart';
+import 'package:smarting/pages/business/camera.dart';
 
 class AddNewBusinessCard extends StatefulWidget {
   const AddNewBusinessCard({Key? key}) : super(key: key);
@@ -76,7 +76,7 @@ class _AddNewBusinessCardState extends State<AddNewBusinessCard> {
                   ),
                   onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CameraSelect())
+                      MaterialPageRoute(builder: (context) => CameraApp())
                   ),
                 ),
                 Text(
@@ -102,7 +102,7 @@ class _AddNewBusinessCardState extends State<AddNewBusinessCard> {
                   ),
                   onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CameraSelect())
+                      MaterialPageRoute(builder: (context) => CameraApp())
                   ),
                 ),
 

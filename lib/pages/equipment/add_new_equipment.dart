@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smarting/pages/business/camera_select.dart';
+import 'package:smarting/pages/business/camera.dart';
 
 class AddNewEquipment extends StatefulWidget {
   @override
@@ -79,7 +79,7 @@ class _AddNewEquipmentState extends State<AddNewEquipment>{
                       ),
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CameraSelect())
+                        MaterialPageRoute(builder: (context) => CameraApp())
                       ),
                     ),
                     Container(
