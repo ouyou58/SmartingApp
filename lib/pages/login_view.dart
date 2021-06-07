@@ -15,10 +15,8 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final _auth = FirebaseAuth.instance;
 
-  // 可変変数
   final String defpass = '12345678';
   final String _compAt = '@smarting.jp';
 
@@ -217,19 +215,18 @@ class _LoginViewState extends State<LoginView> {
                                     style: TextStyle(color: Colors.white)),
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    //ログイン情報が正しく転送される。
+                                    // ログイン情報の操作。
                                     if (!_isSignUpFlag) {
                                       final searchEmail = _email;
                                       final searchPassword = _password;
 
                                       try {
-                                        // Firebase側に入力情報が存在する場合、AUTHデータを格納する。
+                                        // Firebase側に入力情報が存在する場合、authデータを格納する。
                                         final account = await _auth
                                             .signInWithEmailAndPassword(
                                                 email: searchEmail,
                                                 password: searchPassword);
-
-                                        // Firebase側から受け取ったAUTHデータが正しいのか判断する。
+                                        // Firebase側から受け取ったauthデータが正しいのか判断する。
                                         if (account != null) {
                                           // ページ遷移先を指定する。
                                           Provider.of<PageNotifier>(context,
@@ -243,45 +240,70 @@ class _LoginViewState extends State<LoginView> {
                                             '入力情報が正しくありませんでした。恐れ入りますが、入力情報を確認してください。';
                                         final textBtn = '閉じる';
                                         //Firebase側から受け取ったデータが正しくないため、警告メッセージをだす。
-                                        _InformationDialog(context, textTitle,
+                                        _InfoDialog(context, textTitle,
                                             textContent, textBtn);
                                       }
                                     }
-
-                                    //ユーザ情報を登録する。
+                                    // 新規登録の操作。
                                     if (_isSignUpFlag) {
                                       final insertEmail = _email;
                                       final insertPassword = defpass;
 
-                                      try {
-                                        // ユーザー側のメールアドレスと臨時のパスワードを書き込む。
-                                        final account = await _auth
-                                            .createUserWithEmailAndPassword(
-                                                email: insertEmail,
-                                                password: insertPassword);
-
-                                        // ユーザー側のメールアドレスと臨時のパスワードが正しいのか判断する。
-                                        if (account != null) {
-                                          final textTitle = '情報';
+                                      // 会社メールであるのか確認する。
+                                      if (insertEmail.contains(_compAt)) {
+                                        try {
+                                          // ユーザー側のメールアドレスとランダムのパスワードをaccountに書き込む。
+                                          final account = await _auth
+                                              .createUserWithEmailAndPassword(
+                                                  email: insertEmail,
+                                                  password: insertPassword);
+                                          // accountが正しいのか判断する。
+                                          if (account != null) {
+                                            try {
+                                              // メールにパスワードの設定をするリンクを送信。
+                                              _auth.sendPasswordResetEmail(
+                                                  email: insertEmail);
+                                              // リンク送信から不正なエラーが発生した場合
+                                            } catch (e) {
+                                              final textTitle = '警告';
+                                              final textContent =
+                                                  '不正なエラーが発生しています。恐れ入りますが、最初からやり直してください。';
+                                              final textBtn = '閉じる';
+                                              //Firebase側から受け取ったデータが正しくないため、警告メッセージをだす。
+                                              _InfoDialog(context, textTitle,
+                                                  textContent, textBtn);
+                                            }
+                                            final textTitle = '情報';
+                                            final textContent =
+                                                '入力してくださったメールアドレスにリンクを送信しました。メールからパスワードを設定後、ログインしてください。';
+                                            final textBtn = '閉じる';
+                                            //Firebase側にauth情報を登録し、正常終了のメッセージをだす。
+                                            _InfoDialog(context, textTitle,
+                                                textContent, textBtn);
+                                          }
+                                          // メールアドレスが既に登録されている、重複である場合
+                                        } catch (e) {
+                                          final textTitle = '警告';
                                           final textContent =
-                                              '入力してくださったメールアドレスに臨時のパスワードを送信しました。恐れ入りますが確認の上、ログインしてください。';
+                                              '入力してくださったメールアドレスは既に登録されています。恐れ入りますが、メールを確認してください。';
                                           final textBtn = '閉じる';
                                           //Firebase側から受け取ったデータが正しくないため、警告メッセージをだす。
-                                          _InformationDialog(context, textTitle,
+                                          _InfoDialog(context, textTitle,
                                               textContent, textBtn);
                                         }
-                                        // 不正なエラーが発生している場合
-                                      } catch (e) {
+                                        // メールの送信が正常ではないので警告メッセージを出す。
+                                      } else {
                                         final textTitle = '警告';
                                         final textContent =
-                                            '不正なエラーが発生しております。恐れ入りますが、初めからやり直してください。';
+                                            '指定メール(@smarting.jp)ではありません。メールアドレスを確認してください。';
                                         final textBtn = '閉じる';
-                                        //Firebase側から受け取ったデータが正しくないため、警告メッセージをだす。
-                                        _InformationDialog(context, textTitle,
+                                        // メールの送信が正常に処理された情報メッセージを出す。
+                                        _InfoDialog(context, textTitle,
                                             textContent, textBtn);
                                       }
                                     }
                                   }
+                                  _formKey.currentState!.reset();
                                 }),
                           ),
                         ],
@@ -317,77 +339,119 @@ class _LoginViewState extends State<LoginView> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('スマートアイエンジー'),
-            content: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              onChanged: (renewPassEmailtext) {
-                setState(() {
-                  _renewPassEmail = renewPassEmailtext.trim();
-                });
-              },
-              decoration: buildTextInputDecoration(hintemail),
-              cursorColor: Colors.grey,
+          return Dialog(
+            backgroundColor: Colors.orange.shade100,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
             ),
-            actions: <Widget>[
-              // ignore: deprecated_member_use
-              FlatButton(
-                  onPressed: () async {
-                    try {
-                      if (_renewPassEmail.contains(_compAt)) {
-                        _auth.sendPasswordResetEmail(email: _renewPassEmail);
-                        Navigator.of(context).pop();
+            child: Container(
+              height: 250,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      height: 45,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/smt_logo2.png'),
+                              fit: BoxFit.fill)),
+                    ),
+                    Text(
+                      'スマートアイエンジー株式会社',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black38,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 25),
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (renewPassEmailtext) {
+                        setState(() {
+                          _renewPassEmail = renewPassEmailtext.trim();
+                        });
+                      },
+                      decoration: buildTextInputDecoration(hintemail),
+                      cursorColor: Colors.grey,
+                    ),
+                    SizedBox(height: 15),
+                    Container(
+                      height: 35,
+                      width: 280,
+                      // ignore: deprecated_member_use
+                      child: RaisedButton(
+                        child: Text(
+                          '送信',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black38,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        color: Colors.orangeAccent,
+                        onPressed: () async {
+                          try {
+                            // 会社メールである場合
+                            if (_renewPassEmail.contains(_compAt)) {
+                              // メールにパスワードの設定をするリンクを送信。
+                              _auth.sendPasswordResetEmail(
+                                  email: _renewPassEmail);
+                              Navigator.of(context).pop();
 
-                        final textTitle = '情報';
-                        final textContent =
-                            '入力してくださったメールアドレスに「パスワード再設定」のリンクを送信致しました。メールを確認してください。';
-                        final textBtn = '閉じる';
+                              final textTitle = '情報';
+                              final textContent =
+                                  '入力してくださったメールアドレスに「パスワード再設定」のリンクを送信致しました。メールを確認してください。';
+                              final textBtn = '閉じる';
+                              // メールの送信が正常に処理された情報メッセージを出す。
+                              _InfoDialog(
+                                  context, textTitle, textContent, textBtn);
 
-                        // メールの送信情報を表示する。
-                        _InformationDialog(
-                            context, textTitle, textContent, textBtn);
-                      } else {
-                        Navigator.of(context).pop();
+                              // 会社メールでない場合
+                            } else {
+                              Navigator.of(context).pop();
 
-                        final textTitle = '警告';
-                        final textContent =
-                            '指定メール(@smarting.jp)ではありません。メールアドレスを確認してください。';
-                        final textBtn = '閉じる';
+                              final textTitle = '警告';
+                              final textContent =
+                                  '指定メール(@smarting.jp)ではありません。メールアドレスを確認してください。';
+                              final textBtn = '閉じる';
+                              // メールの送信が正常ではないので警告メッセージを出す。
+                              _InfoDialog(
+                                  context, textTitle, textContent, textBtn);
+                            }
+                            //Firebase側にauth情報が存在しない場合
+                          } catch (e) {
+                            Navigator.of(context).pop();
 
-                        // メールの送信情報を表示する。
-                        _InformationDialog(
-                            context, textTitle, textContent, textBtn);
-                      }
-                    } catch (e) {
-                      Navigator.of(context).pop();
-
-                      final textTitle = '情報';
-                      final textContent =
-                          '入力してくださったメールアドレスは存在しません。メールを確認してください。';
-                      final textBtn = '閉じる';
-
-                      // メールの送信情報を表示する。
-                      _InformationDialog(
-                          context, textTitle, textContent, textBtn);
-                    }
-                  },
-                  child: Text('送信')),
-              // ignore: deprecated_member_use
-              FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text('閉じる'))
-            ],
+                            final textTitle = '情報';
+                            final textContent =
+                                '入力してくださったメールアドレスは存在しません。メールを確認してください。';
+                            final textBtn = '閉じる';
+                            // メールの送信情報が存在しないので警告メッセージを出す。
+                            _InfoDialog(
+                                context, textTitle, textContent, textBtn);
+                          }
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
           );
         });
   }
 
   // 情報・警告メッセージのダイアログ
-  void _InformationDialog(BuildContext context, String textTitle,
-      String textContent, String textBtn) {
+  void _InfoDialog(BuildContext context, String textTitle, String textContent,
+      String textBtn) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            backgroundColor: Colors.orange.shade100,
             title: Text(textTitle),
             content: Text(textContent),
             actions: <Widget>[
