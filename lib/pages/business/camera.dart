@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smarting/pages/business/camera_select.dart';
+import 'package:smarting/pages/smarting_main.dart';
 
 void main() {
   runApp(CameraApp());
@@ -11,8 +11,6 @@ class CameraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // title: 'カメラ',
-        // color: Colors.white,
       theme: ThemeData(
         backgroundColor: Colors.orangeAccent,
       ),
@@ -58,7 +56,7 @@ class _CameraState extends State<Camera> {
         leading: IconButton(
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => CameraSelect())
+            MaterialPageRoute(builder: (context) => BottomNavigationController())
           ),
           icon: Icon(Icons.arrow_back_outlined),
         ),
@@ -68,13 +66,13 @@ class _CameraState extends State<Camera> {
       body: Center(
         child: _image == null
             ? Text(
-          'カメラ　または　写真　\nを選択してください',
+          '\u{1F4F7}カメラ\n\u{1F4C2}ライブラリー\nを選択してください',
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600
+            color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600
           ),
         )
-            : Image.file(_image!)
+          : Image.file(_image!)
       ),
       floatingActionButton:
         Row(
@@ -82,18 +80,31 @@ class _CameraState extends State<Camera> {
           children: [
             FloatingActionButton.extended(
               onPressed: getImageFromCamera,
-              label: const Text('カメラ'),
+              label: const Text(
+                  'カメラ',
+                  style: TextStyle(
+                      letterSpacing: 12,
+                      fontSize: 20.0,
+                  ),
+              ),
               icon: const Icon(Icons.photo_camera, size: 40),
               backgroundColor: Colors.orangeAccent.shade100,
             ),
             FloatingActionButton.extended(
               onPressed: getImageFromGarally,
-              label: const Text('ライブラリー'),
+              label: const Text(
+                  'ライブラリー',
+                  style: TextStyle(
+                      letterSpacing: 0.5,
+                      fontSize: 20.0,
+                  ),
+              ),
               icon: const Icon(Icons.photo_album, size: 40),
               backgroundColor: Colors.orange,
             )
           ]
-        )
+        ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
