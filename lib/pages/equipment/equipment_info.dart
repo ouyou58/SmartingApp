@@ -136,22 +136,38 @@ class _EquipmentInfoState extends State<EquipmentInfo> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+              margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  CupertinoButton(
-                    child: Text('初期化'),
-                    color: Colors.orangeAccent.shade100,
-                    onPressed: () {
-                    },
+                  Expanded(
+                    child: CupertinoButton(
+                      child: Text(
+                          '初期化',
+                          style: TextStyle(
+                            letterSpacing: 8.0,
+                            fontSize: 20.0,
+                          )
+                      ),
+                      padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 15.0),
+                      color: Colors.orangeAccent.shade100,
+                      onPressed: () {},
+                    ),
                   ),
-                  CupertinoButton(
-                    child: Text('登録'),
-                    color: Colors.orange,
-                    onPressed: () {},
+                  Expanded(
+                    child: CupertinoButton(
+                      child: Text(
+                          '登録',
+                          style: TextStyle(
+                            letterSpacing: 8.0,
+                            fontSize: 20.0,
+                          )
+                      ),
+                      padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 15.0),
+                      color: Colors.orange,
+                      onPressed: () {},
+                    ),
                   ),
                 ],
               ),

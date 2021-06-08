@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smarting/pages/smarting_main.dart';
@@ -37,6 +38,9 @@ class _CameraState extends State<Camera> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
       }
+      else {
+        return;
+      }
     });
   }
 
@@ -45,6 +49,9 @@ class _CameraState extends State<Camera> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+      }
+      else {
+        return;
       }
     });
   }
@@ -76,32 +83,69 @@ class _CameraState extends State<Camera> {
       ),
       floatingActionButton:
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            FloatingActionButton.extended(
-              onPressed: getImageFromCamera,
-              label: const Text(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.fromLTRB(10, 10, 0, 10),
+              width: 170.0,
+              height: 60.0,
+              child: FloatingActionButton.extended(
+                onPressed: getImageFromCamera,
+                label: const Text(
                   'カメラ',
                   style: TextStyle(
-                      letterSpacing: 12,
-                      fontSize: 20.0,
+                    letterSpacing: 12,
+                    fontSize: 18.0,
                   ),
+                ),
+                icon: Icon(Icons.photo_camera, size: 40),
+                heroTag: null,
+                backgroundColor: Colors.orangeAccent.shade100,
               ),
-              icon: const Icon(Icons.photo_camera, size: 40),
-              backgroundColor: Colors.orangeAccent.shade100,
             ),
-            FloatingActionButton.extended(
-              onPressed: getImageFromGarally,
-              label: const Text(
-                  'ライブラリー',
-                  style: TextStyle(
-                      letterSpacing: 0.5,
-                      fontSize: 20.0,
-                  ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
+              width: 170.0,
+              height: 60.0,
+              child: FloatingActionButton.extended(
+                onPressed: getImageFromGarally,
+                label: const Text(
+                    'ライブラリー',
+                    style: TextStyle(
+                        letterSpacing: 0.5,
+                        fontSize: 18.0,
+                    ),
+                ),
+                icon: Icon(Icons.photo_album, size: 40),
+                heroTag: null,
+                backgroundColor: Colors.orange,
               ),
-              icon: const Icon(Icons.photo_album, size: 40),
-              backgroundColor: Colors.orange,
-            )
+            ),
+            // FloatingActionButton.extended(
+            //   onPressed: getImageFromCamera,
+            //   label: const Text(
+            //       'カメラ',
+            //       style: TextStyle(
+            //           letterSpacing: 12,
+            //           fontSize: 18.0,
+            //       ),
+            //   ),
+            //   icon: const Icon(Icons.photo_camera, size: 40),
+            //   backgroundColor: Colors.orangeAccent.shade100,
+            // ),
+            // FloatingActionButton.extended(
+            //   onPressed: getImageFromGarally,
+            //   label: const Text(
+            //       'ライブラリー',
+            //       style: TextStyle(
+            //           letterSpacing: 0.5,
+            //           fontSize: 18.0,
+            //       ),
+            //   ),
+            //   icon: const Icon(Icons.photo_album, size: 40),
+            //   backgroundColor: Colors.orange,
+            // )
           ]
         ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
