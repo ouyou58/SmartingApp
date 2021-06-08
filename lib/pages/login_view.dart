@@ -234,6 +234,7 @@ class _LoginViewState extends State<LoginView> {
                                               .goToOtherPage(
                                                   SmartingMain.pageName);
                                         }
+                                        _formKey.currentState!.reset();
                                       } catch (e) {
                                         final textTitle = '警告';
                                         final textContent =
@@ -280,6 +281,7 @@ class _LoginViewState extends State<LoginView> {
                                             //Firebase側にauth情報を登録し、正常終了のメッセージをだす。
                                             _InfoDialog(context, textTitle,
                                                 textContent, textBtn);
+                                            _formKey.currentState!.reset();
                                           }
                                           // メールアドレスが既に登録されている、重複である場合
                                         } catch (e) {
@@ -303,7 +305,7 @@ class _LoginViewState extends State<LoginView> {
                                       }
                                     }
                                   }
-                                  _formKey.currentState!.reset();
+
                                 }),
                           ),
                         ],
