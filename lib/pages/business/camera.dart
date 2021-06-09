@@ -1,8 +1,11 @@
 import 'dart:io';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smarting/pages/smarting_main.dart';
+// image_gallery_saver
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+// Uint8List
+import 'dart:typed_data';
 
 void main() {
   runApp(CameraApp());
@@ -32,7 +35,9 @@ class _CameraState extends State<Camera> {
   File? _image;
   final imagePicker = ImagePicker();
 
+  // カメラ画像の読み込み
   Future getImageFromCamera() async {
+    // カメラ
     final pickedFile = await imagePicker.getImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
@@ -44,7 +49,9 @@ class _CameraState extends State<Camera> {
     });
   }
 
+  // アルバム画像の読み込み
   Future getImageFromGarally() async {
+    // アルバム
     final pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
@@ -54,6 +61,14 @@ class _CameraState extends State<Camera> {
         return;
       }
     });
+  }
+
+  // 画像の保存
+  Future _saveImage() async {
+    if(_image != null) {
+      Uint8List _buffer = await _image!.readAsBytes();
+      final result = await ImageGallerySaver.saveImage(_buffer);
+    }
   }
 
   @override
@@ -71,15 +86,42 @@ class _CameraState extends State<Camera> {
         backgroundColor: Colors.orangeAccent
       ),
       body: Center(
-        child: _image == null
-            ? Text(
-          '\u{1F4F7}カメラ\n\u{1F4C2}ライブラリー\nを選択してください',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _image == null
+              ? Text(
+                '\u{1F4F7}カメラ\n\u{1F4C2}ライブラリー\nを選択してください',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600
+                ),
+              )
+              : Image.file(
+                _image!,
+                width: 900,
+                height: 380,
+              ),
+
+              RaisedButton(
+                onPressed: _saveImage, splashColor: Colors.purple,
+                padding: EdgeInsets.fromLTRB(1.0, 0.0, 1.0, 0.0),
+                color: Colors.orange,
+                child: Text(
+                  '保存',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w200,
+                    color: Colors.white,
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  side: BorderSide(color: Colors.black),
+                ),
+              ),
+            ],
           ),
-        )
-          : Image.file(_image!)
       ),
       floatingActionButton:
         Row(
@@ -122,30 +164,6 @@ class _CameraState extends State<Camera> {
                 backgroundColor: Colors.orange,
               ),
             ),
-            // FloatingActionButton.extended(
-            //   onPressed: getImageFromCamera,
-            //   label: const Text(
-            //       'カメラ',
-            //       style: TextStyle(
-            //           letterSpacing: 12,
-            //           fontSize: 18.0,
-            //       ),
-            //   ),
-            //   icon: const Icon(Icons.photo_camera, size: 40),
-            //   backgroundColor: Colors.orangeAccent.shade100,
-            // ),
-            // FloatingActionButton.extended(
-            //   onPressed: getImageFromGarally,
-            //   label: const Text(
-            //       'ライブラリー',
-            //       style: TextStyle(
-            //           letterSpacing: 0.5,
-            //           fontSize: 18.0,
-            //       ),
-            //   ),
-            //   icon: const Icon(Icons.photo_album, size: 40),
-            //   backgroundColor: Colors.orange,
-            // )
           ]
         ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

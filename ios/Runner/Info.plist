@@ -47,5 +47,7 @@
 	<string>カメラへのアクセス</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>マイクへのアクセス</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>ライブラリに保存するよ</string>
 </dict>
 </plist>
