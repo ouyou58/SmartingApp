@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smarting/pages/smarting_main.dart';
+import 'package:smarting/pages/business/add_new_business_card.dart';
 // image_gallery_saver
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 // Uint8List
@@ -18,7 +19,7 @@ class CameraApp extends StatelessWidget {
       theme: ThemeData(
         backgroundColor: Colors.orangeAccent,
       ),
-      home: Camera(title: 'カメラとリスト'),
+      home: Camera(title: 'アップロード'),
     );
   }
 }
@@ -78,7 +79,8 @@ class _CameraState extends State<Camera> {
         leading: IconButton(
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => BottomNavigationController())
+            // MaterialPageRoute(builder: (context) => BottomNavigationController())
+              MaterialPageRoute(builder: (context) => AddNewBusinessCard())
           ),
           icon: Icon(Icons.arrow_back_outlined),
         ),
@@ -89,26 +91,15 @@ class _CameraState extends State<Camera> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _image == null
-              ? Text(
-                '\u{1F4F7}カメラ\n\u{1F4C2}ライブラリー\nを選択してください',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600
-                ),
-              )
-              : Image.file(
-                _image!,
-                width: 900,
-                height: 380,
-              ),
-
+              // Image.network(
+              //     'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+              // Image.file(_image!),
               RaisedButton(
-                onPressed: _saveImage, splashColor: Colors.purple,
-                padding: EdgeInsets.fromLTRB(1.0, 0.0, 1.0, 0.0),
+
+                padding: EdgeInsets.fromLTRB(10.0, 2.0, 10.0, 2.0),
                 color: Colors.orange,
                 child: Text(
-                  '保存',
+                  'アップロード',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w200,
@@ -119,6 +110,26 @@ class _CameraState extends State<Camera> {
                   borderRadius: BorderRadius.circular(30),
                   side: BorderSide(color: Colors.black),
                 ),
+                // onPressed: _saveImage, splashColor: Colors.purple,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddNewBusinessCard()),
+                  );
+                }
+              ),
+              _image == null
+              ? Text(
+                '\u{1F4F7}カメラ\n\u{1F4C2}ライブラリー\n\nアップロードしてください',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600
+                ),
+              )
+              : Image.file(
+                _image!,
+                // width: 900,
+                // height: 380,
               ),
             ],
           ),
