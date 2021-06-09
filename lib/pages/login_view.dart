@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,13 +19,13 @@ class _LoginViewState extends State<LoginView> {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
 
-  final String defpass = '12345678';
   final String _compAt = '@smarting.jp';
 
   // インプットデータの結果を格納
   late String _email;
   late String _password;
   late String _renewPassEmail;
+  late String _defPass;
 
   // テキストボックスが空である場合のテキスト
   static final String hintemail = "メールを入力してください。";
@@ -50,6 +52,14 @@ class _LoginViewState extends State<LoginView> {
   static final String info = '情報';
   static final String warn = '警告';
   static final String close = '閉じる';
+
+  // ランダムパスワードを設定
+  static const _chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+  String getRandomString() => String.fromCharCodes(Iterable.generate(
+      10, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   @override
   Widget build(BuildContext context) {
@@ -249,8 +259,10 @@ class _LoginViewState extends State<LoginView> {
                                     }
                                     // 新規登録の操作。
                                     if (_isSignUpFlag) {
+                                      _defPass = getRandomString();
+
                                       final insertEmail = _email;
-                                      final insertPassword = defpass;
+                                      final insertPassword = _defPass;
 
                                       // 会社メールであるのか確認する。
                                       if (insertEmail.contains(_compAt)) {
