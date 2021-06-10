@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarting/pages/business/add_new_business_card.dart';
 import 'package:smarting/pages/business/business_manage.dart';
-import 'package:smarting/pages/equipment/add_new_equipment.dart';
-import 'package:smarting/pages/equipment/equipment_manage.dart';
+import 'package:smarting/pages/equipment/equipment_add_info.dart';
+import 'package:smarting/pages/equipment/equipment_listview.dart';
 import 'package:smarting/pages/smarting_side_drawer.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
@@ -35,11 +35,13 @@ class BottomNavigationController extends StatefulWidget {
 
 class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
-  int tabBarIndex = 0;
-  final pages = [EquipmentManage(), BusinessManage()];
+
+  final pages = [EquipmentListview(), BusinessManage()];
 
   // タブバー
   final tabBarTitles = ['備品管理', '名刺管理'];
+
+  int tabBarIndex = 0;
   String currentTitle = "";
 
   @override
@@ -92,7 +94,7 @@ class _BottomNavigationControllerState
   void showAddPage() {
     if (tabBarIndex == 0) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AddNewEquipment()));
+          context, MaterialPageRoute(builder: (context) => EquipmentAddInfo()));
     }else if (tabBarIndex == 1) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AddNewBusinessCard()));

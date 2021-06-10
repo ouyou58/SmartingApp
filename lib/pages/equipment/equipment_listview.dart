@@ -1,31 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smarting/model/data.dart';
-import 'package:smarting/model/list.dart';
+import 'package:smarting/model/equipment_listdata.dart';
 
 import 'package:smarting/widget/slidable_widget.dart';
 
-import 'equipment_info.dart';
+import 'equipment_detail_info.dart';
 
-class EquipmentManage extends StatefulWidget {
+class EquipmentListview extends StatefulWidget {
   @override
-  _EquipmentManageState createState() => _EquipmentManageState();
+  _EquipmentListviewState createState() => _EquipmentListviewState();
 }
 
-class _EquipmentManageState extends State<EquipmentManage> {
-  List<Data> equipments = List.of(ListJ.listData);
+class _EquipmentListviewState extends State<EquipmentListview> {
+  List<EquipmentConst> equipmentsList = List.of(EquipmentListData.listData);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView.separated(
           physics: BouncingScrollPhysics(),
-          itemCount: equipments.length,
+          itemCount: equipmentsList.length,
           itemBuilder: (context, index) {
-            final equipmentList = equipments[index];
+            final equipmentList = equipmentsList[index];
             //横スクロール機能呼び出し
             return SlidableWidget(
-                child: buildEquipementList(equipmentList),
+                child: buildEquipementListview(equipmentList),
                 onDismissed: (action) =>
                     dismissSlidableItem(context, index, action)
             );
@@ -36,7 +35,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
   }
 
   //リスト呼び出しウィジェット
-  Widget buildEquipementList(Data item) {
+  Widget buildEquipementListview(EquipmentConst item) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
@@ -89,7 +88,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
                   onTap: () => Navigator.push(
                       context,
                       //item伝送
-                      MaterialPageRoute(builder: (context) => EquipmentInfo(item: item))
+                      MaterialPageRoute(builder: (context) => EquipmentDetailInfo(item: item))
                   ),
                 ),
                 SizedBox(height: 5),
@@ -146,7 +145,7 @@ class _EquipmentManageState extends State<EquipmentManage> {
   void dismissSlidableItem(
       BuildContext context, int index, SlidableAction action) {
     setState(() {
-      equipments.removeAt(index);
+      equipmentsList.removeAt(index);
     });
   }
 }
