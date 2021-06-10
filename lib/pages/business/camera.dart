@@ -16,6 +16,7 @@ class CameraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         backgroundColor: Colors.orangeAccent,
       ),
@@ -85,7 +86,19 @@ class _CameraState extends State<Camera> {
           icon: Icon(Icons.arrow_back_outlined),
         ),
         title: Text(widget.title!),
-        backgroundColor: Colors.orangeAccent
+        backgroundColor: Colors.orangeAccent,
+        actions: [
+          IconButton(
+            onPressed: () => {
+              _saveImage(),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddNewBusinessCard()),
+              ),
+            },
+            icon: Icon(Icons.check),
+          ),
+        ],
       ),
       body: Center(
           child: Column(
@@ -94,30 +107,6 @@ class _CameraState extends State<Camera> {
               // Image.network(
               //     'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
               // Image.file(_image!),
-              RaisedButton(
-
-                padding: EdgeInsets.fromLTRB(10.0, 2.0, 10.0, 2.0),
-                color: Colors.orange,
-                child: Text(
-                  'アップロード',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w200,
-                    color: Colors.white,
-                  ),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  side: BorderSide(color: Colors.black),
-                ),
-                // onPressed: _saveImage, splashColor: Colors.purple,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddNewBusinessCard()),
-                  );
-                }
-              ),
               _image == null
               ? Text(
                 '\u{1F4F7}カメラ\n\u{1F4C2}ライブラリー\n\nアップロードしてください',
