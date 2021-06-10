@@ -224,7 +224,7 @@ class _BusinessCardInfoState extends State<BusinessCardInfo>{
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  RaisedButton(
+                  ElevatedButton(
                       child: Text('保存しない'),
                       // color: Colors.red,
                       onPressed: () {
@@ -232,7 +232,7 @@ class _BusinessCardInfoState extends State<BusinessCardInfo>{
                       }
                   ),
 
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text('保存します'),
                     // color: Colors.blue,
                     onPressed: () {
