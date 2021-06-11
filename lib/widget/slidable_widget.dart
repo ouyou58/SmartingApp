@@ -27,33 +27,50 @@ class SlidableWidget<T> extends StatelessWidget {
         ],
       );
 
-  void _showDialog(BuildContext context){
+  void _showDialog(BuildContext context) {
     showDialog(
         context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context) {
+          String topText = '削除';
+          String contentText = '該当するアイテムを削除します。\nよろしいでしょうか？';
+          String degree = 'いいえ';
+          String agree = 'はい';
+
           return AlertDialog(
-            title: new Text('削除しますか'),
-            content: new Text('削除'),
+            backgroundColor: Colors.orange.shade100,
+            title: Text(topText,
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.redAccent,
+                    fontWeight: FontWeight.bold)),
+            content: Text(contentText),
             actions: <Widget>[
               // ignore: deprecated_member_use
-              new FlatButton(
+              FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  //onDismissed(SlidableAction.delete),
-
-                  child: new Text('いいえ')
-              ),
+                  child: Text(
+                    degree,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black38,
+                        fontWeight: FontWeight.bold),
+                  )),
               // ignore: deprecated_member_use
-              new FlatButton(
+              FlatButton(
                   onPressed: () => deleteData(context),
-                  child: new Text('はい')
-              ),
+                  child: Text(
+                    agree,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black38,
+                        fontWeight: FontWeight.bold),
+                  )),
             ],
           );
-        }
-    );
+        });
   }
 
-  void deleteData(BuildContext context){
+  void deleteData(BuildContext context) {
     onDismissed(SlidableAction.delete);
     Navigator.of(context).pop();
   }

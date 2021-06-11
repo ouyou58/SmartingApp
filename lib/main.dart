@@ -22,6 +22,7 @@ class SmartingApp extends StatelessWidget {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_)=>PageNotifier())],
       child : MaterialApp(
+          debugShowCheckedModeBanner: false,
         home: Consumer<PageNotifier>(
           builder: (context, pageNotifier, child){
 

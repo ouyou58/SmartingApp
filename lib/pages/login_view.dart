@@ -250,7 +250,7 @@ class _LoginViewState extends State<LoginView> {
                                       } catch (e) {
                                         final textTitle = warn;
                                         final textContent =
-                                            '入力情報が正しくありませんでした。恐れ入りますが、入力情報を確認してください。';
+                                            '入力情報が正しくありませんでした。\n\n恐れ入りますが、\n入力情報を確認してください。';
                                         final textBtn = close;
                                         //Firebase側から受け取ったデータが正しくないため、警告メッセージをだす。
                                         _infoDialog(context, textTitle,
@@ -281,7 +281,7 @@ class _LoginViewState extends State<LoginView> {
                                           } catch (e) {
                                             final textTitle = warn;
                                             final textContent =
-                                                '不正なエラーが発生しています。恐れ入りますが、最初からやり直してください。';
+                                                '不正なエラーが発生しています。\n\n恐れ入りますが、\n最初からやり直してください。';
                                             final textBtn = close;
                                             //Firebase側から受け取ったデータが正しくないため、警告メッセージをだす。
                                             _infoDialog(context, textTitle,
@@ -289,7 +289,7 @@ class _LoginViewState extends State<LoginView> {
                                           }
                                           final textTitle = info;
                                           final textContent =
-                                              '入力してくださったメールアドレスにリンクを送信しました。メールからパスワードを設定後、ログインしてください。';
+                                              '入力してくださったメールアドレスに\nリンクを送信しました。\n\nメールからパスワードを設定後、\nログインしてください。';
                                           final textBtn = close;
                                           //Firebase側にauth情報を登録し、正常終了のメッセージをだす。
                                           _infoDialog(context, textTitle,
@@ -299,7 +299,7 @@ class _LoginViewState extends State<LoginView> {
                                         } catch (e) {
                                           final textTitle = warn;
                                           final textContent =
-                                              '入力してくださったメールアドレスは既に登録されています。恐れ入りますが、メールを確認してください。';
+                                              '入力してくださったメールアドレスは\n既に登録されています。\n\n恐れ入りますが、\nメールを確認してください。';
                                           final textBtn = close;
                                           //Firebase側から受け取ったデータが正しくないため、警告メッセージをだす。
                                           _infoDialog(context, textTitle,
@@ -309,7 +309,7 @@ class _LoginViewState extends State<LoginView> {
                                       } else {
                                         final textTitle = warn;
                                         final textContent =
-                                            '指定メール(@smarting.jp)ではありません。メールアドレスを確認してください。';
+                                            '指定メール(@smarting.jp)ではありません。\n\nメールアドレスを確認してください。';
                                         final textBtn = close;
                                         // メールの送信が正常に処理された情報メッセージを出す。
                                         _infoDialog(context, textTitle,
@@ -414,7 +414,7 @@ class _LoginViewState extends State<LoginView> {
 
                               final textTitle = info;
                               final textContent =
-                                  '入力してくださったメールアドレスに「パスワード再設定」のリンクを送信致しました。メールを確認してください。';
+                                  '入力してくださったメールアドレスに\n「パスワード再設定」のリンクを送信致しました。\n\nメールを確認してください。';
                               final textBtn = close;
                               // メールの送信が正常に処理された情報メッセージを出す。
                               _infoDialog(
@@ -426,7 +426,7 @@ class _LoginViewState extends State<LoginView> {
 
                               final textTitle = warn;
                               final textContent =
-                                  '指定メール(@smarting.jp)ではありません。メールアドレスを確認してください。';
+                                  '指定メール(@smarting.jp)ではありません。\n\nメールアドレスを確認してください。';
                               final textBtn = close;
                               // メールの送信が正常ではないので警告メッセージを出す。
                               _infoDialog(
@@ -438,7 +438,7 @@ class _LoginViewState extends State<LoginView> {
 
                             final textTitle = warn;
                             final textContent =
-                                '入力してくださったメールアドレスは存在しません。メールを確認してください。';
+                                '入力してくださったメールアドレスは\n存在しません。\n\nメールを確認してください。';
                             final textBtn = close;
                             // メールの送信情報が存在しないので警告メッセージを出す。
                             _infoDialog(

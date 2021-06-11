@@ -8,15 +8,10 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 // Uint8List
 import 'dart:typed_data';
 
-void main() {
-  runApp(CameraApp());
-}
-
 class CameraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         backgroundColor: Colors.orangeAccent,
       ),
@@ -37,6 +32,9 @@ class _CameraState extends State<Camera> {
   File? _image;
   final imagePicker = ImagePicker();
 
+  // ture = カメラー　false = ライブラリー
+  bool _statusFlag = false;
+
   // カメラ画像の読み込み
   Future getImageFromCamera() async {
     // カメラ
@@ -44,6 +42,7 @@ class _CameraState extends State<Camera> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        _statusFlag = true;
       }
       else {
         return;
@@ -58,6 +57,7 @@ class _CameraState extends State<Camera> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        _statusFlag = false;
       }
       else {
         return;
@@ -80,7 +80,6 @@ class _CameraState extends State<Camera> {
         leading: IconButton(
           onPressed: () => Navigator.push(
             context,
-            // MaterialPageRoute(builder: (context) => BottomNavigationController())
               MaterialPageRoute(builder: (context) => AddNewBusinessCard())
           ),
           icon: Icon(Icons.arrow_back_outlined),
@@ -90,7 +89,9 @@ class _CameraState extends State<Camera> {
         actions: [
           IconButton(
             onPressed: () => {
-              _saveImage(),
+              if(_statusFlag = true){
+                _saveImage()
+              },
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AddNewBusinessCard()),
@@ -136,6 +137,7 @@ class _CameraState extends State<Camera> {
                 onPressed: getImageFromCamera,
                 label: const Text(
                   'カメラ',
+
                   style: TextStyle(
                     letterSpacing: 12,
                     fontSize: 18.0,
