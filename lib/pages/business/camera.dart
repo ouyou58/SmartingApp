@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smarting/pages/smarting_main.dart';
 import 'package:smarting/pages/business/add_new_business_card.dart';
+
 // image_gallery_saver
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+
 // Uint8List
 import 'dart:typed_data';
 
@@ -33,6 +34,7 @@ class _CameraState extends State<Camera> {
   final imagePicker = ImagePicker();
 
   // ture = カメラー　false = ライブラリー
+  // ignore: unused_field
   bool _statusFlag = false;
 
   // カメラ画像の読み込み
@@ -40,11 +42,10 @@ class _CameraState extends State<Camera> {
     // カメラ
     final pickedFile = await imagePicker.getImage(source: ImageSource.camera);
     setState(() {
+      _statusFlag = true;
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        _statusFlag = true;
-      }
-      else {
+      } else {
         return;
       }
     });
@@ -55,11 +56,10 @@ class _CameraState extends State<Camera> {
     // アルバム
     final pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
     setState(() {
+      _statusFlag = false;
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        _statusFlag = false;
-      }
-      else {
+      } else {
         return;
       }
     });
@@ -67,7 +67,7 @@ class _CameraState extends State<Camera> {
 
   // 画像の保存
   Future _saveImage() async {
-    if(_image != null) {
+    if (_image != null) {
       Uint8List _buffer = await _image!.readAsBytes();
       final result = await ImageGallerySaver.saveImage(_buffer);
     }
@@ -78,10 +78,8 @@ class _CameraState extends State<Camera> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Navigator.push(
-            context,
-              MaterialPageRoute(builder: (context) => AddNewBusinessCard())
-          ),
+          onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddNewBusinessCard())),
           icon: Icon(Icons.arrow_back_outlined),
         ),
         title: Text(widget.title!),
@@ -89,9 +87,7 @@ class _CameraState extends State<Camera> {
         actions: [
           IconButton(
             onPressed: () => {
-              if(_statusFlag = true){
-                _saveImage()
-              },
+              if (_statusFlag) {_saveImage()},
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AddNewBusinessCard()),
@@ -102,30 +98,25 @@ class _CameraState extends State<Camera> {
         ],
       ),
       body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // Image.network(
-              //     'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
-              // Image.file(_image!),
-              _image == null
-              ? Text(
-                '\u{1F4F7}カメラ\n\u{1F4C2}ライブラリー\n\nアップロードしてください',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black, fontSize: 30, fontWeight: FontWeight.w600
-                ),
-              )
-              : Image.file(
-                _image!,
-                // width: 900,
-                // height: 380,
-              ),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _image == null
+                ? Text(
+                    '\u{1F4F7}カメラ\n\u{1F4C2}ライブラリー\n\nアップロードしてください',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600),
+                  )
+                : Image.file(
+                    _image!,
+                  ),
+          ],
+        ),
       ),
-      floatingActionButton:
-        Row(
+      floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -137,7 +128,6 @@ class _CameraState extends State<Camera> {
                 onPressed: getImageFromCamera,
                 label: const Text(
                   'カメラ',
-
                   style: TextStyle(
                     letterSpacing: 12,
                     fontSize: 18.0,
@@ -155,11 +145,11 @@ class _CameraState extends State<Camera> {
               child: FloatingActionButton.extended(
                 onPressed: getImageFromGarally,
                 label: const Text(
-                    'ライブラリー',
-                    style: TextStyle(
-                        letterSpacing: 0.5,
-                        fontSize: 18.0,
-                    ),
+                  'ライブラリー',
+                  style: TextStyle(
+                    letterSpacing: 0.5,
+                    fontSize: 18.0,
+                  ),
                 ),
                 icon: Icon(Icons.photo_album, size: 40),
                 heroTag: null,
@@ -167,7 +157,7 @@ class _CameraState extends State<Camera> {
               ),
             ),
           ]
-        ),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
