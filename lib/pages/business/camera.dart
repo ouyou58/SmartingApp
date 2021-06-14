@@ -77,14 +77,14 @@ class _CameraState extends State<Camera> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddNewBusinessCard())),
-          icon: Icon(Icons.arrow_back_outlined),
-        ),
         title: Text(widget.title!),
         backgroundColor: Colors.orangeAccent,
         actions: [
+          IconButton(
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddNewBusinessCard())),
+            icon: Icon(Icons.assignment_return_outlined, size:30),
+          ),
           IconButton(
             onPressed: () => {
               if (_statusFlag) {_saveImage()},
@@ -93,70 +93,71 @@ class _CameraState extends State<Camera> {
                 MaterialPageRoute(builder: (context) => AddNewBusinessCard()),
               ),
             },
-            icon: Icon(Icons.check),
+            icon: Icon(Icons.add_task, size:30),
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _image == null
-                ? Text(
-                    '\u{1F4F7}カメラ\n\u{1F4C2}ライブラリー\n\nアップロードしてください',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600),
-                  )
-                : Image.file(
-                    _image!,
+      body: Container(
+        child: Center(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: 400,
+                  child: _image == null
+                    ? Image.asset('assets/images/noimage.png')
+                    : Image.file(_image!),
+                ),
+                SizedBox(height: 35),
+                Container(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                          width: 170.0,
+                          height: 60.0,
+                          child: FloatingActionButton.extended(
+                            onPressed: getImageFromCamera,
+                            label: const Text(
+                              'カメラ',
+                              style: TextStyle(
+                                letterSpacing: 12,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            icon: Icon(Icons.photo_camera, size: 40),
+                            heroTag: null,
+                            backgroundColor: Colors.orangeAccent.shade100,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                          width: 170.0,
+                          height: 60.0,
+                          child: FloatingActionButton.extended(
+                            onPressed: getImageFromGarally,
+                            label: const Text(
+                              'ライブラリー',
+                              style: TextStyle(
+                                letterSpacing: 0.5,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            icon: Icon(Icons.photo_album, size: 40),
+                            heroTag: null,
+                            backgroundColor: Colors.orange,
+                          ),
+                        ),
+                      ]
                   ),
-          ],
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
-      floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(10, 10, 0, 10),
-              width: 170.0,
-              height: 60.0,
-              child: FloatingActionButton.extended(
-                onPressed: getImageFromCamera,
-                label: const Text(
-                  'カメラ',
-                  style: TextStyle(
-                    letterSpacing: 12,
-                    fontSize: 18.0,
-                  ),
-                ),
-                icon: Icon(Icons.photo_camera, size: 40),
-                heroTag: null,
-                backgroundColor: Colors.orangeAccent.shade100,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 10, 10),
-              width: 170.0,
-              height: 60.0,
-              child: FloatingActionButton.extended(
-                onPressed: getImageFromGarally,
-                label: const Text(
-                  'ライブラリー',
-                  style: TextStyle(
-                    letterSpacing: 0.5,
-                    fontSize: 18.0,
-                  ),
-                ),
-                icon: Icon(Icons.photo_album, size: 40),
-                heroTag: null,
-                backgroundColor: Colors.orange,
-              ),
-            ),
-          ]
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
