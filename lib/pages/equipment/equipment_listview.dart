@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smarting/model/equipment_listdata.dart';
+import 'package:smarting/pages/equipment/equipment_detail_info.dart';
+import 'package:smarting/provider/page_notifier.dart';
 
 import 'package:smarting/widget/slidable_widget.dart';
-
-import 'equipment_detail_info.dart';
 
 class EquipmentListview extends StatefulWidget {
   @override
@@ -85,11 +86,7 @@ class _EquipmentListviewState extends State<EquipmentListview> {
                       ]
                     ),
                   ),
-                  onTap: () => Navigator.push(
-                      context,
-                      //item伝送
-                      MaterialPageRoute(builder: (context) => EquipmentDetailInfo(item: item))
-                  ),
+                  onTap: () => Provider.of<PageNotifier>(context, listen: false).goToOtherPage(EquipmentDetailInfo.pageName)
                 ),
                 SizedBox(height: 5),
                 Container(

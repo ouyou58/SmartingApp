@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:smarting/pages/business/camera.dart';
+import 'package:smarting/pages/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:smarting/model/card_list.dart';
 
-class BusinessCardInfo extends StatefulWidget{
+class BusinessDetailInfo extends StatefulWidget{
   final CardData item;
-  const BusinessCardInfo({Key? key, required this.item}) : super(key: key);
+  const BusinessDetailInfo({Key? key, required this.item}) : super(key: key);
 
   @override
-  _BusinessCardInfoState createState() => _BusinessCardInfoState();
+  _BusinessDetailInfoState createState() => _BusinessDetailInfoState();
 }
 
-class _BusinessCardInfoState extends State<BusinessCardInfo>{
+class _BusinessDetailInfoState extends State<BusinessDetailInfo>{
 
   @override
   void initState(){
@@ -36,7 +36,7 @@ class _BusinessCardInfoState extends State<BusinessCardInfo>{
           icon: Icon(Icons.arrow_back_outlined),
         ),
         title: Text(
-          '名刺追加',
+          '名刺変更',
           style: TextStyle(
               color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600
           ),

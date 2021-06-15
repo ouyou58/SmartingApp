@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:smarting/pages/business/camera.dart';
+import 'package:smarting/pages/camera.dart';
 
-class AddNewBusinessCard extends StatefulWidget {
-  const AddNewBusinessCard({Key? key}) : super(key: key);
+class BusinessAddInfo extends StatefulWidget {
+  const BusinessAddInfo({Key? key}) : super(key: key);
 
   @override
-  _AddNewBusinessCardState createState() => _AddNewBusinessCardState();
+  _BusinessAddInfoState createState() => _BusinessAddInfoState();
 }
 
-class _AddNewBusinessCardState extends State<AddNewBusinessCard> {
+class _BusinessAddInfoState extends State<BusinessAddInfo> {
   String? businessCard;
   String? companyName = "入力してください。";
   String? name = "入力してください。";
