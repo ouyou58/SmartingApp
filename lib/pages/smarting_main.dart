@@ -45,9 +45,9 @@ class _BottomNavigationControllerState
   Widget build(BuildContext context) {
     currentTitle = tabBarTitles[tabBarIndex];
     return WillPopScope(
+      onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           backgroundColor: Colors.orangeAccent,
           title: Text(
             currentTitle,
@@ -87,7 +87,6 @@ class _BottomNavigationControllerState
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
-      onWillPop: () async => false,
     );
   }
 

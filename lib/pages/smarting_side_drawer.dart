@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smarting/pages/equipment/equipment_detail_info.dart';
+import 'package:smarting/provider/page_notifier.dart';
 
-class SmartingSideDrawer extends StatelessWidget {
+class SmartingSideDrawer extends StatefulWidget {
+  @override
+  _SmartingSideDrawerState createState() => _SmartingSideDrawerState();
+}
+
+class _SmartingSideDrawerState extends State<SmartingSideDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,18 +81,27 @@ class SmartingSideDrawer extends StatelessWidget {
               title: Text(
                 '個人情報'
               ),
+              onTap: (){
+                Provider.of<PageNotifier>(context, listen: false).goToOtherPage(EquipmentDetailInfo.pageName);
+              },
             ),
             ListTile(
               leading: Icon(Icons.settings),
               title: Text(
                 '設定'
               ),
+              onTap: (){
+                Provider.of<PageNotifier>(context, listen: false).goToOtherPage(EquipmentDetailInfo.pageName);
+              },
             ),
             ListTile(
               leading: Icon(Icons.logout),
               title: Text(
                 'ログアウト'
               ),
+              onTap: (){
+                Provider.of<PageNotifier>(context, listen: false).goToMain();
+              },
             )
           ],
         ),

@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:smarting/pages/smarting_main.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
-
-//check
 class LoginView extends StatefulWidget {
   static final String pageName = 'LoginView';
 

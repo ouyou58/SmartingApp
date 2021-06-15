@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarting/pages/equipment/equipment_add_info.dart';
 import 'package:smarting/pages/equipment/equipment_detail_info.dart';
-import 'package:smarting/pages/login_view.dart';
+import 'package:smarting/pages/userinfo/login_view.dart';
 import 'package:smarting/pages/smarting_main.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
