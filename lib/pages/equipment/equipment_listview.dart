@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smarting/model/equipment_listdata.dart';
+import 'package:smarting/services/equipment_listdata.dart';
 import 'package:smarting/pages/equipment/equipment_detail_info.dart';
 import 'package:smarting/provider/page_notifier.dart';
 

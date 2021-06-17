@@ -48,20 +48,30 @@ class _BottomNavigationControllerState
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.orangeAccent,
-          title: Text(
-            currentTitle,
-            style: TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-          actions: [
-            IconButton(
-                icon: Icon(Icons.logout),
-                onPressed: () {
-                  Provider.of<PageNotifier>(context, listen: false).goToMain();
-                })
-          ],
-        ),
+            backgroundColor: Colors.orangeAccent,
+            title: Text(
+              currentTitle,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600),
+            ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.search_outlined, size: 30),
+                //todo : 備品または名刺のリストを検索する機能の作成
+                onPressed: () =>
+                    Provider.of<PageNotifier>(context, listen: false)
+                        .goToOtherPage(SmartingMain.pageName),
+              ),
+              IconButton(
+                icon: Icon(Icons.filter_alt, size: 30),
+                //todo : 備品または名刺のリストのフィルター機能の作成
+                onPressed: () =>
+                    Provider.of<PageNotifier>(context, listen: false)
+                        .goToOtherPage(SmartingMain.pageName),
+              ),
+            ]),
         drawer: Drawer(child: SmartingSideDrawer()),
         body: pages[tabBarIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -92,7 +102,8 @@ class _BottomNavigationControllerState
 
   void showAddPage() {
     if (tabBarIndex == 0) {
-      Provider.of<PageNotifier>(context, listen: false).goToOtherPage(EquipmentAddInfo.pageName);
+      Provider.of<PageNotifier>(context, listen: false)
+          .goToOtherPage(EquipmentAddInfo.pageName);
     } else if (tabBarIndex == 1) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => BusinessAddInfo()));

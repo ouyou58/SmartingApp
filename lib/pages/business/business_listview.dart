@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smarting/pages/business/business_detail_info.dart';
 import 'package:smarting/widget/slidable_widget.dart';
-import 'package:smarting/model/card_list.dart';
-import 'package:smarting/model/card.dart';
+import 'package:smarting/services/card_list.dart';
+import 'package:smarting/services/card.dart';
 
 class BusinessListview extends StatefulWidget {
 

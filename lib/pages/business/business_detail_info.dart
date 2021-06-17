@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smarting/pages/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:smarting/model/card_list.dart';
+import 'package:smarting/services/card_list.dart';
 
 class BusinessDetailInfo extends StatefulWidget{
   final CardData item;

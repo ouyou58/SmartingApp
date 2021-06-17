@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smarting/pages/equipment/equipment_detail_info.dart';
+import 'package:smarting/pages/userinfo/logout_view.dart';
+import 'package:smarting/pages/userinfo/personal_info.dart';
+import 'package:smarting/pages/userinfo/setting_info.dart';
 import 'package:smarting/provider/page_notifier.dart';
 
 class SmartingSideDrawer extends StatefulWidget {
@@ -82,7 +84,7 @@ class _SmartingSideDrawerState extends State<SmartingSideDrawer> {
                 '個人情報'
               ),
               onTap: (){
-                Provider.of<PageNotifier>(context, listen: false).goToOtherPage(EquipmentDetailInfo.pageName);
+                Provider.of<PageNotifier>(context, listen: false).goToOtherPage(PersonalInfo.pageName);
               },
             ),
             ListTile(
@@ -91,7 +93,7 @@ class _SmartingSideDrawerState extends State<SmartingSideDrawer> {
                 '設定'
               ),
               onTap: (){
-                Provider.of<PageNotifier>(context, listen: false).goToOtherPage(EquipmentDetailInfo.pageName);
+                Provider.of<PageNotifier>(context, listen: false).goToOtherPage(SettingInfo.pageName);
               },
             ),
             ListTile(
@@ -100,7 +102,7 @@ class _SmartingSideDrawerState extends State<SmartingSideDrawer> {
                 'ログアウト'
               ),
               onTap: (){
-                Provider.of<PageNotifier>(context, listen: false).goToMain();
+                Provider.of<PageNotifier>(context, listen: false).goToOtherPage(LogoutView.pageName);
               },
             )
           ],
